@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum StageState
 {
@@ -93,6 +90,8 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    [Header("골드")]
+    [SerializeField] private EffectController goldEffect;
     private int earnedGold;
     public int EarnedGold
     {
@@ -103,7 +102,23 @@ public class StageManager : MonoBehaviour
             gameUiManager.UpdateEarnedGold(earnedGold);
         }
     }
-    [HideInInspector] public float goldMultiplier = 1f;
+    private float goldMultiplier = 1f;
+    [HideInInspector] public float GoldMultiplier
+    {
+        get => goldMultiplier;
+        set
+        {
+            goldMultiplier = value;
+            if (goldMultiplier > 1f)
+            {
+                goldEffect?.gameObject?.SetActive(true);
+            }
+            else
+            {
+                goldEffect?.gameObject?.SetActive(false);
+            }
+        }
+    }
     
     private StageState currentState;
     public StageState CurrentState
@@ -149,6 +164,7 @@ public class StageManager : MonoBehaviour
         CurrentState = StageState.PLAYING;
         MonsterCount = monsterSpawner.MonsterCount;
         EarnedGold = 0;
+        GoldMultiplier = 1f;
     }
     
     public void DamageCastle(float damage)
@@ -204,7 +220,7 @@ public class StageManager : MonoBehaviour
 
     public void GetGold(int gold)
     {
-        EarnedGold += Mathf.CeilToInt(gold * goldMultiplier);
+        EarnedGold += Mathf.CeilToInt(gold * GoldMultiplier);
         gameUiManager.UpdateEarnedGold(earnedGold);
     }
 
@@ -224,7 +240,7 @@ public class StageManager : MonoBehaviour
         else
         {
             TimeScaleController.SetTimeScale(0f);
-            soundManager?.sfxAudioSource.Stop();
+            soundManager.sfxAudioSource.Stop();
         }
 
         switch (currentState)
@@ -254,11 +270,8 @@ public class StageManager : MonoBehaviour
 
     private void StageClear()
     {
-        if (Variables.LoadTable.StageId >= GameManager.instance.GameData.stageClearNum)
-        {
-            GameManager.instance.GameData.stageClearNum = Variables.LoadTable.StageId;
-            Logger.Log($"현재 최고 스테이지 클리어 ID: {Variables.LoadTable.StageId}");
-        }
+        //클리어했을때 그 클리어 스테이지의 ID를 저장
+        GameManager.instance.GameData.StageClearNum = Variables.LoadTable.StageId;
 
         var stageClear = GameManager.instance.GameData.StageClear;
         if (!stageClear[Variables.LoadTable.StageId]) // 최초 클리어

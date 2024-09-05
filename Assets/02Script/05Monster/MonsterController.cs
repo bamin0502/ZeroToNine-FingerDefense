@@ -1,16 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Spine;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.UI;
 
 public class MonsterController : CombatEntity<MonsterStatus>, IControllable, ITargetable, IDraggable
 {
     public IObjectPool<MonsterController> pool;
 
-    private StateMachine<MonsterController> stateMachine;
+    public StateMachine<MonsterController> stateMachine;
     public Type CurrentState
     {
         get => stateMachine.CurrentState.GetType();
@@ -46,7 +43,12 @@ public class MonsterController : CombatEntity<MonsterStatus>, IControllable, ITa
     //튜토리얼용 변수
     public bool IsTutorialMonster { get; set; }
 
-    public bool isPaused => stateMachine.CurrentState.GetType() == typeof(MoveState) && ((MoveState)stateMachine.CurrentState).isPaused;
+    public bool isPaused
+    {
+        get => stateMachine.CurrentState.GetType() == typeof(MoveState) &&
+               ((MoveState)stateMachine.CurrentState).isPaused;
+        set => ((MoveState)stateMachine.CurrentState).isPaused = value;
+    }
 
     public bool IsDraggable
     {

@@ -1,4 +1,3 @@
-using Coffee.UIExtensions;
 using UnityEngine;
 using Spine.Unity;
 using TMPro;
@@ -25,7 +24,6 @@ public struct DialogData
     
     public GameObject[] objectsToActivate;
     public GameObject[] objectsToDeactivate;
-    
 }
 
 public class DialogSystem : MonoBehaviour
@@ -145,6 +143,7 @@ public class DialogSystem : MonoBehaviour
             dialogCanvasGroup.gameObject.SetActive(false);
             return;
         }
+        
         // 현재 대화 데이터 가져오기
         var dialogInfo = dialogData[currentDialogIndex];
         currentSpeakerIndex = dialogInfo.speakerIndex;
@@ -190,7 +189,7 @@ public class DialogSystem : MonoBehaviour
                 break;
             }
             textMesh.text += t;
-            await UniTask.Delay(50);
+            await UniTask.Delay(25);
         }
         isTyping = false;
     }

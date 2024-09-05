@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
 
 public static class DataTableIds
 {
@@ -75,12 +72,7 @@ public static class DataTableManager
         tables.Add(DataTableIds.Upgrade, upgradeTable);
         
     }
-
-    // public static StringTable GetStringTable()
-    // {
-    //     return Get<StringTable>(DataTableIds.String[(int)Variables.SaveData.CurrentLang]);
-    // }
-
+    
     public static T Get<T>(string id) where T : DataTable
     {
         if (tables.TryGetValue(id, out var value))

@@ -19,6 +19,7 @@ public class TutorialNickName: TutorialBase
         if (ActiveObject.isComplete == true)
         {
             controller.SetNextTutorial();
+            
         }      
     }
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,9 +64,7 @@ public class CharacterAttributeFilter : MonoBehaviour
         bool isElementMatched = !isAnyElementChecked || ElementToggles.Any(t => t.isOn && character.Element == System.Array.IndexOf(ElementToggles, t));
         bool isClassMatched = !isAnyClassChecked || ClassToggles.Any(t => t.isOn && character.Class == System.Array.IndexOf(ClassToggles, t));
         bool isGradeMatched = !isAnyGradeChecked || GradeToggles.Any(t => t.isOn && character.Grade == System.Array.IndexOf(GradeToggles, t));
-
-        Logger.Log($"Character ID: {character.Id}, ElementMatched: {isElementMatched}, ClassMatched: {isClassMatched}, GradeMatched: {isGradeMatched}");
-
+        
         // 각각의 조건이 모두 맞아야 매칭되도록 변경
         return (!isAnyElementChecked || isElementMatched) 
                && (!isAnyClassChecked || isClassMatched) 

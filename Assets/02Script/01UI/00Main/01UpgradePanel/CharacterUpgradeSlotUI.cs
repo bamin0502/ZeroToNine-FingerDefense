@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CharacterUpgradeSlotUI : MonoBehaviour
 {
@@ -30,29 +29,28 @@ public class CharacterUpgradeSlotUI : MonoBehaviour
 
     public TextMeshProUGUI powerText;
     
-    private void OnEnable()
+    private void Awake()
     {
         assetListTable = DataTableManager.Get<AssetListTable>(DataTableIds.Asset);
         skillTable = DataTableManager.Get<SkillTable>(DataTableIds.Skill);
-        
     }
     
     public void SetCharacterSlot(PlayerCharacterData characterData)
     {
         this.characterData = characterData;
-
+        
+        if(assetListTable == null)
+        {
+            return;
+        }
+        
         var assetName = assetListTable.Get(characterData.AssetNo);
         if (!string.IsNullOrEmpty(assetName))
         {
-            GameObject prefab = Resources.Load<GameObject>($"Prefab/00CharacterUI/{assetName}");
-            if (prefab != null)
-            {
-                var spineInstance = Instantiate(prefab, classParent);
-                spineInstance.transform.localPosition = Vector3.zero;
-            }
+            Addressables.LoadAssetAsync<GameObject>($"Prefab/00CharacterUI/{assetName}").Completed += OnCharacterPrefabLoaded;
         }
 
-        for (var i = 0; i <= characterData.Grade; i++)
+        for (var i = 0; i < characterData.Grade+1; i++)
         {
             var gradeInstance = new GameObject("GradeImage").AddComponent<Image>();
             gradeInstance.sprite = gradeImage;
@@ -64,15 +62,14 @@ public class CharacterUpgradeSlotUI : MonoBehaviour
         {
             elementImage.sprite = elementImages[characterData.Element];
             elementImage.gameObject.SetActive(true);
+            
         }
         upgradeLevelText.text = $"+ {characterData.Plus}";
         
-        var skillImage = SkillIcon.GetComponent<Image>();
         var skillId = assetListTable.Get(characterData.SkillIcon);
-        if(skillImage != null && !string.IsNullOrEmpty(skillId))
+        if (!string.IsNullOrEmpty(skillId))
         {
-            skillImage.sprite = Resources.Load<Sprite>($"Prefab/09SkillIcon/{skillId}");
-            skillImage.gameObject.SetActive(true);
+            Addressables.LoadAssetAsync<Sprite>($"Prefab/09SkillIcon/{skillId}").Completed += OnSkillIconLoaded;
         }
 
         powerText.text = $"{characterData.Power}";
@@ -81,8 +78,37 @@ public class CharacterUpgradeSlotUI : MonoBehaviour
         ChoicePanel.transform.SetAsLastSibling();
         ChoiceButton.onClick.AddListener(OnClick);
     }
+
+    private void OnCharacterPrefabLoaded(AsyncOperationHandle<GameObject> obj)
+    {
+        if (obj.Status == AsyncOperationStatus.Succeeded)
+        {
+            var spineInstance = Instantiate(obj.Result, classParent);
+            spineInstance.transform.localPosition = Vector3.zero;
+            spineInstance.transform.SetAsFirstSibling();
+        }
+        else
+        {
+            Debug.LogWarning($"Prefab/00CharacterUI/{assetListTable.Get(characterData.AssetNo)} could not be loaded.");
+        }
+    }
+
+    private void OnSkillIconLoaded(AsyncOperationHandle<Sprite> obj)
+    {
+        if (obj.Status == AsyncOperationStatus.Succeeded)
+        {
+            SkillIcon.sprite = obj.Result;
+            SkillIcon.gameObject.SetActive(true);
+            
+        }
+        else
+        {
+            Debug.LogWarning($"Prefab/09SkillIcon/{assetListTable.Get(characterData.SkillIcon)} could not be loaded.");
+        }
+    }
+
     private void OnClick()
     {
         OnSlotClick?.Invoke(this);
     }
-} 
+}

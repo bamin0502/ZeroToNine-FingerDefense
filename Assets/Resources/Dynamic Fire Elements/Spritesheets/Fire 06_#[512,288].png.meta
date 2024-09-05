@@ -3,7 +3,7 @@ guid: 3b2bc520938188a41ab734adf4e244ba
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 50
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -933,48 +952,47 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fire 06_#[512,288]_27: -1281705258
-      Fire 06_#[512,288]_30: -1137248136
-      Fire 06_#[512,288]_15: -153663732
-      Fire 06_#[512,288]_17: -322908983
+      Fire 06_#[512,288]_0: 1224134936
+      Fire 06_#[512,288]_1: -39379002
+      Fire 06_#[512,288]_10: -1648289593
+      Fire 06_#[512,288]_11: 1662177017
+      Fire 06_#[512,288]_12: 485964370
+      Fire 06_#[512,288]_13: -1469247858
       Fire 06_#[512,288]_14: -1359953428
+      Fire 06_#[512,288]_15: -153663732
+      Fire 06_#[512,288]_16: -1416361012
+      Fire 06_#[512,288]_17: -322908983
+      Fire 06_#[512,288]_18: -1254976838
+      Fire 06_#[512,288]_19: 1096604241
+      Fire 06_#[512,288]_2: 144902034
+      Fire 06_#[512,288]_20: 447247943
+      Fire 06_#[512,288]_21: -972000291
+      Fire 06_#[512,288]_22: -879449052
+      Fire 06_#[512,288]_23: 1116686321
       Fire 06_#[512,288]_24: -1809398330
+      Fire 06_#[512,288]_25: 1890893845
+      Fire 06_#[512,288]_26: 1748889921
+      Fire 06_#[512,288]_27: -1281705258
+      Fire 06_#[512,288]_28: -842929969
+      Fire 06_#[512,288]_29: -2128561302
+      Fire 06_#[512,288]_3: 1588407261
+      Fire 06_#[512,288]_30: -1137248136
+      Fire 06_#[512,288]_31: 2038900577
+      Fire 06_#[512,288]_32: -1862402503
       Fire 06_#[512,288]_33: -93460351
-      Fire 06_#[512,288]_5: 1915951875
+      Fire 06_#[512,288]_34: -914714599
+      Fire 06_#[512,288]_35: -1765814503
+      Fire 06_#[512,288]_36: 267350700
       Fire 06_#[512,288]_37: -897712261
+      Fire 06_#[512,288]_38: -1205757768
+      Fire 06_#[512,288]_4: 460972469
+      Fire 06_#[512,288]_5: 1915951875
+      Fire 06_#[512,288]_6: 697188028
+      Fire 06_#[512,288]_7: -822248950
       Fire 06_#[512,288]_8: 7861696
       Fire 06_#[512,288]_9: 99030027
-      Fire 06_#[512,288]_25: 1890893845
-      Fire 06_#[512,288]_1: -39379002
-      Fire 06_#[512,288]_2: 144902034
-      Fire 06_#[512,288]_36: 267350700
-      Fire 06_#[512,288]_6: 697188028
-      Fire 06_#[512,288]_4: 460972469
-      Fire 06_#[512,288]_21: -972000291
-      Fire 06_#[512,288]_13: -1469247858
-      Fire 06_#[512,288]_20: 447247943
-      Fire 06_#[512,288]_35: -1765814503
-      Fire 06_#[512,288]_31: 2038900577
-      Fire 06_#[512,288]_26: 1748889921
-      Fire 06_#[512,288]_32: -1862402503
-      Fire 06_#[512,288]_22: -879449052
-      Fire 06_#[512,288]_29: -2128561302
-      Fire 06_#[512,288]_18: -1254976838
-      Fire 06_#[512,288]_3: 1588407261
-      Fire 06_#[512,288]_28: -842929969
-      Fire 06_#[512,288]_23: 1116686321
-      Fire 06_#[512,288]_10: -1648289593
-      Fire 06_#[512,288]_38: -1205757768
-      Fire 06_#[512,288]_12: 485964370
-      Fire 06_#[512,288]_0: 1224134936
-      Fire 06_#[512,288]_16: -1416361012
-      Fire 06_#[512,288]_19: 1096604241
-      Fire 06_#[512,288]_11: 1662177017
-      Fire 06_#[512,288]_34: -914714599
-      Fire 06_#[512,288]_7: -822248950
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

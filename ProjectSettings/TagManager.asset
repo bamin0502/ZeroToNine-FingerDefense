@@ -35,6 +35,7 @@ TagManager:
   - SliderModalParent
   - ModalMask
   - SoundManager
+  - UpgradePanel
   layers:
   - Default
   - TransparentFX

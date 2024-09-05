@@ -36,11 +36,9 @@ public class TutorialSlotClick : TutorialBase
     }
     public override void Execute(TutorialController controller)
     {
-        
     }
 
     public override void Exit()
     {
-        
     }
 }

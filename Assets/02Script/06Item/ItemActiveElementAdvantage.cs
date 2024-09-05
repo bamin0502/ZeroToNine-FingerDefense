@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Item/Active Element Advantage", fileName = "Item.asset")]
 public class ItemActiveElementAdvantage : ActiveItem

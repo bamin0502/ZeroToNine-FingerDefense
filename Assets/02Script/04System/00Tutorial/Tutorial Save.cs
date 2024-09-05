@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TutorialSave : TutorialBase
@@ -9,7 +6,6 @@ public class TutorialSave : TutorialBase
     
     public override void Enter()
     {
-       
     }
 
     public override void Execute(TutorialController controller)
@@ -44,14 +40,12 @@ public class TutorialSave : TutorialBase
             Logger.Log("저장 완료");
         }
         else
-        {
-            Logger.LogError("TutorialSave.cs: Enter() - saveObject is not tagged");
+        {   
         }
     }
 
     public override void Exit()
     {
-        
     }
 }
 

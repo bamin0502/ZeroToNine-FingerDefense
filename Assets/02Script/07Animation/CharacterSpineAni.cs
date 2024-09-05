@@ -1,8 +1,6 @@
 using UnityEngine;
 using Spine.Unity;
 using Spine;
-using System;
-using System.Collections.Generic;
 
 public class CharacterSpineAni : MonoBehaviour
 {

@@ -1,8 +1,6 @@
 using Spine;
 using UnityEngine;
 using Spine.Unity;
-using System;
-
 
 [RequireComponent(typeof(MonsterController))]
 public class MonsterSpineAni : MonoBehaviour

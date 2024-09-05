@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class DragAndDrop : MonoBehaviour
 {

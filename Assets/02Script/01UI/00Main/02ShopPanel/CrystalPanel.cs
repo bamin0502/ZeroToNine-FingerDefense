@@ -24,146 +24,71 @@ public class CrystalPanel : MonoBehaviour
             crystalBuyButtons[index].onClick.AddListener(() => OnClickCrystalBuyButton(index));
         }
     }
-
     private void OnClickCrystalBuyButton(int index)
     {
-        Logger.Log($"CrystalButton {index} Clicked");
         switch (index)
         {
             case 0:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90728)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 60;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90728, 60);
                 break;
             case 1:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90729)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 330;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90729, 330);
                 break;
             case 2:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90730)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 1090;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90730, 1090);
                 break;
             case 3:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90731)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 2240;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90731, 2240);
                 break;
             case 4:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90732)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 3880;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90732, 3880);
                 break;
             case 5:
-                ModalWindow.Create()
-                    .SetHeader("구매 확인")
-                    .SetBody(90733)
-                    .AddButton("확인", () =>
-                    {
-                        GameManager.instance.GameData.Diamond += 8080;
-                        DataManager.SaveFile(GameManager.instance.GameData);
-                        CheckPurchase(index);
-                    })
-                    .AddButton("취소" , () => { })
-                    .Show();
+                ShowPurchaseConfirmation(index, 90733, 8080);
                 break;
             default:
-                Logger.LogWarning("Invalid GoldBuyButton Clicked");
                 break;
-                
         }
+    }
+    private void ShowPurchaseConfirmation(int index, int bodyId, int diamondsToAdd)
+    {
+        ModalWindow.Create(window =>
+        {
+            window.SetHeader("구매 확인")
+                .SetBody(bodyId)
+                .AddButton("확인", () =>
+                {
+                    GameManager.instance.GameData.Diamond += diamondsToAdd;
+                    DataManager.SaveFile(GameManager.instance.GameData);
+                    CheckPurchase(index);
+                })
+                .AddButton("취소", () => { })
+                .Show();
+        });
     }
     
     private void CheckPurchase(int index)
     {
+        int bodyId = 0;
         switch (index)
         {
-            case 0:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90734)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-            case 1:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90735)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-            case 2:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90736)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-            case 3:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90737)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-            case 4:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90738)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-            case 5:
-                ModalWindow.Create()
-                    .SetHeader("구매 성공")
-                    .SetBody(90739)
-                    .AddButton("확인", () => { })
-                    .Show();
-                break;
-                    
-                
+            case 0: bodyId = 90734; break;
+            case 1: bodyId = 90735; break;
+            case 2: bodyId = 90736; break;
+            case 3: bodyId = 90737; break;
+            case 4: bodyId = 90738; break;
+            case 5: bodyId = 90739; break;
         }
-       
+
+        if (bodyId != 0)
+        {
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("구매 성공")
+                    .SetBody(bodyId)
+                    .AddButton("확인", () => { })
+                    .Show();
+            });
+        }
     }
 }

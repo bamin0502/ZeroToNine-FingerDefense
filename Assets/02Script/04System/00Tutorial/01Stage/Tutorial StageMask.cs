@@ -1,6 +1,4 @@
 using Coffee.UIExtensions;
-using DG.Tweening;
-using UnityEngine;
 
 public class TutorialStageMask : TutorialBase
 {

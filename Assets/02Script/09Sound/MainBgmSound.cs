@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class MainBgmSound : MonoBehaviour
 {
     private AudioSource bgmAudioSource;
-    public AudioClip mainBgm;
+    
+    public string mainBgmAddress;  // Addressables 키를 저장
 
     private void Awake()
     {
@@ -14,7 +15,29 @@ public class MainBgmSound : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayMainBgm();
+        if (!string.IsNullOrEmpty(mainBgmAddress))
+        {
+            LoadAndPlayMainBgm();
+        }
+        else
+        {
+            Debug.LogWarning("mainBgmAddress is not set.");
+        }
+    }
+
+    private void LoadAndPlayMainBgm()
+    {
+        Addressables.LoadAssetAsync<AudioClip>(mainBgmAddress).Completed += handle =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                PlayAudioClip(handle.Result);
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load BGM with address: {mainBgmAddress}");
+            }
+        };
     }
 
     public void PlayAudioClip(AudioClip clip)
@@ -25,13 +48,24 @@ public class MainBgmSound : MonoBehaviour
             bgmAudioSource.Play();
         }
     }
-
-    public void PlayMainBgm()
+    
+    public void PlayAudioClip(string address)
     {
-        if (bgmAudioSource && mainBgm)
+        Addressables.LoadAssetAsync<AudioClip>(address).Completed += handle =>
         {
-            bgmAudioSource.clip = mainBgm;
-            bgmAudioSource.Play();
-        }
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                PlayAudioClip(handle.Result);
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load BGM with address: {address}");
+            }
+        };
+    }
+
+    public void StopAudioClip()
+    {
+        bgmAudioSource.Stop();
     }
 }

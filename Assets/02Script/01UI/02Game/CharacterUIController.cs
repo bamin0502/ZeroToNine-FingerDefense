@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CharacterUIController : MonoBehaviour
 {
@@ -19,26 +21,32 @@ public class CharacterUIController : MonoBehaviour
     
     private void CreateCharacterSlots()
     {
-        for (int i = 0; i < Variables.LoadTable.characterIds[i]; i++)
+        for (int i = 0; i < Variables.LoadTable.characterIds.Length; i++)
         {
             var assetName = assetListTable.Get(Variables.LoadTable.characterIds[i]);
             if (!string.IsNullOrEmpty(assetName))
             {
-                //var prefab = Addressables.LoadAssetAsync<GameObject>($"Prefab/00CharacterUI/{assetName}");
-                GameObject prefab = Resources.Load<GameObject>($"Prefab/00CharacterUI/{assetName}");
-
-                if (prefab != null)
-                {
-                    var characterUISlotInstance = Instantiate(characterUISlotPrefab, characterUIParent);
-                    var prefabInstance = Instantiate(prefab, characterUISlotInstance.transform);
-                }
-                    //var prefabInstance = Addressables.DownloadDependenciesAsync(prefab, characterUISlotInstance.transform);
-                
+                string assetPath = $"Prefab/00CharacterUI/{assetName}";
+                Addressables.LoadAssetAsync<GameObject>(assetPath).Completed += OnCharacterAssetLoaded;
             }
             else
             {
                 Logger.LogError($"Asset name not found for AssetNo {Variables.LoadTable.characterIds[i]}");
             }
+        }
+    }
+
+    private void OnCharacterAssetLoaded(AsyncOperationHandle<GameObject> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            var prefab = handle.Result;
+            var characterUISlotInstance = Instantiate(characterUISlotPrefab, characterUIParent);
+            Instantiate(prefab, characterUISlotInstance.transform);
+        }
+        else
+        {
+            Logger.LogError("Failed to load character UI prefab via Addressables.");
         }
     }
 }

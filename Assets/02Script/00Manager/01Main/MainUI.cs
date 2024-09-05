@@ -1,7 +1,5 @@
-using System;
 using TMPro;
 using UnityEngine;
-using Cysharp.Threading.Tasks; 
 
 public class MainUI : MonoBehaviour, IResourceObserver
 {

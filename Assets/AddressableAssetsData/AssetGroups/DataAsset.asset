@@ -143,6 +143,1200 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fcdc3fc19015234d9a3df79e8cc1e5d
+    m_Address: Prefab/08Main/Slider Modal Window
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af53b5e7a31dc1b498beb4d72eaad574
+    m_Address: Prefab/08Main/ModalWindow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a26b9ccbf6e7d3240a3875cdc70582fb
+    m_Address: Prefab/00CharacterUI/Hound Series
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6e6017a5129f954e96f94aaa6f67213
+    m_Address: Prefab/00CharacterUI/LUNA_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c02e5c57a4313c446bd6067479b6bf9d
+    m_Address: Prefab/00CharacterUI/Bandit Elite Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a7e55262ebac9f46b8a4849f5779d96
+    m_Address: Prefab/00CharacterUI/Demon Weaver
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7751e717263367a4596ccef6bfee688d
+    m_Address: Prefab/00CharacterUI/LUNA_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 509cb32a96672f84f9bce4326370c6d3
+    m_Address: Prefab/00CharacterUI/Hound Series(2)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a64dfc17eff5d5f4a8cac7c06d5c34b6
+    m_Address: Prefab/00CharacterUI/PIE
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 734d0322ab30d24488d3a4229765c3bc
+    m_Address: Prefab/00CharacterUI/Stone Cutter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c797ceedbb5e53a48b0f5b4b6367ff24
+    m_Address: Prefab/00CharacterUI/Bandit Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c721348b3055d84ab7483cc43883669
+    m_Address: Prefab/00CharacterUI/Desperado
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f049f9f68573e39478ee7353db132342
+    m_Address: Prefab/00CharacterUI/Bandit Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4abc022a0c9b59d478b6df0e11cf6cae
+    m_Address: Prefab/00CharacterUI/Pirate Axeman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68024fbdf80b6c9498276f1a36e4e532
+    m_Address: Prefab/00CharacterUI/PIE_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79621cde44b19744ab2663d19cd2a35a
+    m_Address: Prefab/00CharacterUI/PIE_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a51c2c7c69493149890e648d9f8cce5
+    m_Address: Prefab/00CharacterUI/Hound Series(1)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44c64d49171856f488e6ccf5fe0a90e1
+    m_Address: Prefab/00CharacterUI/KEI_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 027747fd76a740f4084f300a9b65c5e0
+    m_Address: Prefab/00CharacterUI/KEI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1df3ad0382f6d24c8fb49fae75e4b58
+    m_Address: Prefab/00CharacterUI/Demon Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9367566999432f40ab48eaeace171f4
+    m_Address: Prefab/00CharacterUI/KEI_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: caba03592fcd0b6498eaaa67ee35bb62
+    m_Address: Prefab/00CharacterUI/Pirate Artillery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 490eebdf4ff6318459328f6b479e1b3a
+    m_Address: Prefab/00CharacterUI/LUNA
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: deb682190e10e2c498c717a7fffaa099
+    m_Address: Prefab/00CharacterUI/Demon Master
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9922a35e3c429d44f99099c00ad43fc8
+    m_Address: Prefab/00CharacterUI/Stone Ball
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b944f5de8b200c64890ac3ac8a757079
+    m_Address: Prefab/00CharacterUI/Pirate Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c076b46ed655db448b8bd92c50bef71
+    m_Address: Prefab/01MonsterUI/5Orc Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69e3bb554daad264aa0111da90d2a2ec
+    m_Address: Prefab/01MonsterUI/15Undead_Wizard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dbbf1eee26303746ac6cf17655bd6ed
+    m_Address: Prefab/01MonsterUI/6Orc King
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fdbb5ffe9de2bc4b984cb82e59f762a
+    m_Address: Prefab/01MonsterUI/9Kobolt_Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f214ea3ef4e6884680356748f6cb27d
+    m_Address: Prefab/01MonsterUI/16Banshee Jr
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7579b528701638f448782143774c388d
+    m_Address: Prefab/01MonsterUI/3Goblin_Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d18a563552d1a674691a1de7449d5ae1
+    m_Address: Prefab/01MonsterUI/8Kobolt_Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bee7f8366e1cf542959faa69cd2fd5e
+    m_Address: Prefab/01MonsterUI/12Ogre
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1722bb7b77b690e41a6d57723660bd11
+    m_Address: Prefab/01MonsterUI/18VolaBear
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81c21ed71caf3054bbf84b2d7ccf3f04
+    m_Address: Prefab/01MonsterUI/10Banshee
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 321fc6a5bf8e38b449869f8b95c5110a
+    m_Address: Prefab/01MonsterUI/21Lizard Dead
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0123a30568cc1446a98b26b77ebd0aa
+    m_Address: Prefab/01MonsterUI/20Stone Turtle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d40796256f8b024a8971aa852aa2104
+    m_Address: Prefab/01MonsterUI/24Stone Golem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85e250cfb6d1d144f946ba8533d95c72
+    m_Address: Prefab/01MonsterUI/7Kobolt_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7179eb1fb32ad65439ba0b7a171b75c3
+    m_Address: Prefab/01MonsterUI/19Lizard Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67debfa9bbaa84d4cb83f15ff6f76017
+    m_Address: Prefab/01MonsterUI/1Goblin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e84a31a617a0522488976d9c07b155fd
+    m_Address: Prefab/01MonsterUI/17Undead_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d260d4c9233ec9a4ea8d85e0bcd2e921
+    m_Address: Prefab/01MonsterUI/23Necromancer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f047322b43c6c94181bc2b20b0b4b11
+    m_Address: Prefab/01MonsterUI/14Frost Tribe Axe Man
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0e4894129c54b045bd423ef6dd07afe
+    m_Address: Prefab/01MonsterUI/11Cannon Shooter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a1187895e60fb44e902dd6e4665c970
+    m_Address: Prefab/01MonsterUI/25Grouper
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64c455368ce453949bbca4fe0563cb74
+    m_Address: Prefab/01MonsterUI/4Skeleton_Slave
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2431222be60afd240a076052d02ad771
+    m_Address: Prefab/01MonsterUI/2Goblin_Thrower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bd859722146ef34da6b0ff3f54ffab3
+    m_Address: Prefab/01MonsterUI/13Orc Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8537b0e5ddf27a54d80000d88a6dd490
+    m_Address: Prefab/01MonsterUI/22MIniGolem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b188734f7262124e9ce0cc608541312
+    m_Address: Prefab/02CharacterGame/Stone Cutter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0ec63d3147cf8649b1bed9abb8db360
+    m_Address: Prefab/02CharacterGame/Pirate Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 518430fc405330c4587b02227a0858d8
+    m_Address: Prefab/02CharacterGame/KEI_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea8f4491d05700e4e94f673304887c98
+    m_Address: Prefab/02CharacterGame/Stone Ball
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 846883e9fa5df144e8a22523232f4201
+    m_Address: Prefab/02CharacterGame/LUNA
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77928f39c4cf9414298037a8e3866e43
+    m_Address: Prefab/02CharacterGame/Pirate Artillery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5eb85920fe64de84daf548346c8743ff
+    m_Address: Prefab/02CharacterGame/Hound Series(2)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6bc29e60175dfb74a84b5a6df384d451
+    m_Address: Prefab/02CharacterGame/Pirate Axeman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7b980a835b174d4ba4d9a3f24e0519f
+    m_Address: Prefab/02CharacterGame/Bandit Elite Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fae4df207f876bc479217b4feb6efdde
+    m_Address: Prefab/02CharacterGame/PIE
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e5e1068364ca3945bc3784956fcb326
+    m_Address: Prefab/02CharacterGame/Demon Weaver
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eca4243d01e5b7e4aadbc46a287893ac
+    m_Address: Prefab/02CharacterGame/Desperado
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c444a19f2b9db8a4d98dca71f56481ce
+    m_Address: Prefab/02CharacterGame/Bandit Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62d695e939d31464187cd77d73888052
+    m_Address: Prefab/02CharacterGame/KEI_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd9ab68cfec4d144480ea3edd7ba7e43
+    m_Address: Prefab/02CharacterGame/Demon Master
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87cab51b81556f64fa68d64eb535d066
+    m_Address: Prefab/02CharacterGame/PIE_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23454a2fb93bac049b5f777d77d31169
+    m_Address: Prefab/02CharacterGame/Hound Series
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 263e767a25157cf48aa1574f7a678563
+    m_Address: Prefab/02CharacterGame/PIE_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95ed83d0b02cfc4db47a940f85a736c
+    m_Address: Prefab/02CharacterGame/KEI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f1661a81eea68a4f8d4f51dc756c5cc
+    m_Address: Prefab/02CharacterGame/Demon Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6873c9dd8f949914283f5fd680136669
+    m_Address: Prefab/02CharacterGame/LUNA_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15ba79389fe2b1f43810c27c8aa9e1e4
+    m_Address: Prefab/02CharacterGame/Bandit Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49bab1a90cdaa27429ec9b31d09a3f34
+    m_Address: Prefab/02CharacterGame/LUNA_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 183528b56472e01409fd2ea06979b084
+    m_Address: Prefab/02CharacterGame/Hound Series(1)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 906f7e5a980092748bb6cc22e1741903
+    m_Address: Prefab/07GameItem/627. An Agent of God
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fceb9505af6338f4a856cc61b691d20c
+    m_Address: Prefab/07GameItem/621. Repair Durability
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65f2217aa7ee7ba4aaa3d6a652582b3b
+    m_Address: Prefab/07GameItem/624. Wealth and Honor
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8697a4d27c2b69a49b3a2ef7b5d1df6e
+    m_Address: Prefab/07GameItem/618. Don't Move!
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c2c7fc60396e0844be064aa95cab329
+    m_Address: Prefab/07GameItem/623. The Rage of the Sun
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00b80a5a20a732f4eafea3dcb2d557e1
+    m_Address: Prefab/07GameItem/620. Fear
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f683c6466e3996449922078b42e0ca43
+    m_Address: Prefab/07GameItem/617. Freeze!
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33c5a70ed16ed5844942f2a301ba4ef1
+    m_Address: Prefab/07GameItem/625. A Black Hole
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3410a80de19136044be7bf0ff572ed48
+    m_Address: Prefab/07GameItem/619. Weakening
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8f19817f4e295041ad1567c9ba48bf1
+    m_Address: Prefab/07GameItem/626. Change Property
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47053e73c55f7904cafd35275ddb2bf0
+    m_Address: Prefab/07GameItem/622. Barrier
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 297d7aa88b2739d4b8cddaf03e3665cf
+    m_Address: Prefab/03MonsterGame/Kobolt_Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d5add8ef26a011459931f0b7270eef2
+    m_Address: Prefab/03MonsterGame/MIniGolem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82510cf8a8529c743b2efb0da00403b9
+    m_Address: Prefab/03MonsterGame/Goblin_Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f3c2c87ecf58c244a8e111efd3acd4a
+    m_Address: Prefab/03MonsterGame/Banshee Jr
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fa2fd942400dc94c959d38ec2fbc4fe
+    m_Address: Prefab/03MonsterGame/Lizard Dead
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e7899c3821a00845a3efa853d516be8
+    m_Address: Prefab/03MonsterGame/Grouper
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6e0863332856234a98aa9c4dbd817a9
+    m_Address: Prefab/03MonsterGame/Necromancer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 297d17f32dc69294790030795420df12
+    m_Address: Prefab/03MonsterGame/Orc Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df3aa1250e59c4b4e95e49b654c68793
+    m_Address: Prefab/03MonsterGame/Goblin_Thrower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03f87c6082edd3640864fe1efd971902
+    m_Address: Prefab/03MonsterGame/Undead_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa5c5479a164f204caa8422bd3c5103d
+    m_Address: Prefab/03MonsterGame/Kobolt_Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17312dd6a2c070c42a148d942af20e77
+    m_Address: Prefab/03MonsterGame/Lizard Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c9f9c41968b04d4aa15be4168742e04
+    m_Address: Prefab/03MonsterGame/Ogre
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 715b75fb5ebbb4443b26b71e586449ef
+    m_Address: Prefab/03MonsterGame/Cannon Shooter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8934f128baab1c458ad52d7bcbdce0e
+    m_Address: Prefab/03MonsterGame/Skeleton_Slave
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb4fa0ce4b2ce434e90a0b4298e93e9b
+    m_Address: Prefab/03MonsterGame/Stone Turtle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c79b822bc409a545ac10df002e5ed7f
+    m_Address: Prefab/03MonsterGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 031fe80f026ce154daee1baa741db4d3
+    m_Address: Prefab/03MonsterGame/Orc King
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33318d70c7ff0b64f98f6325e0bb9d52
+    m_Address: Prefab/03MonsterGame/Kobolt_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94c6b17c36d31e34c997ff0c4ce064db
+    m_Address: Prefab/03MonsterGame/Stone Golem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a658ad8641f8ee44a8ccc097e8a51719
+    m_Address: Prefab/03MonsterGame/Goblin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4a3bd2669e899546b543e6cb5716da5
+    m_Address: Prefab/03MonsterGame/Banshee
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d735983d2cd3ed4484755b513aa3645
+    m_Address: Prefab/03MonsterGame/Undead_Wizard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14501bb778478ad4e8f48dfa44ca0760
+    m_Address: Prefab/03MonsterGame/Orc Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29c5ddeec8778f049985e31ca8ea8677
+    m_Address: Prefab/03MonsterGame/Frost Tribe Axe Man
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5425e68c7b1a2634aae131aa87217d19
+    m_Address: Prefab/03MonsterGame/VolaBear
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58b059f24c531444f9c47d3093edcd22
+    m_Address: Prefab/06ShopIcon/601. Character Recruitment Ticket
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b1b7afb87d50ac4c9e827510bee873e
+    m_Address: Prefab/06ShopIcon/602. Crystal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9024d367a14b23e4fbd5613ea912c9ac
+    m_Address: Prefab/06ShopIcon/603. Gold
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9699ee484119d2c4ab26d3aba68316ee
+    m_Address: Prefab/06ShopIcon/605. 60 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e331561699339840a460fb8121fe9ec
+    m_Address: Prefab/06ShopIcon/606. 300 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc01354c78db0764ea69fde4ca81d51a
+    m_Address: Prefab/06ShopIcon/607. 980 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68db75159c7eb8b45af21653b810d792
+    m_Address: Prefab/06ShopIcon/608. 1980 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebc688f77d67d004fa6b262ff6d2df4e
+    m_Address: Prefab/06ShopIcon/609. 3280 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19a33c13742e03e428b2089c37cfc845
+    m_Address: Prefab/06ShopIcon/610. 6480 Crystals
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c984641a29bacb4783140bbdfd49222
+    m_Address: Prefab/06ShopIcon/611. 1600 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b5d298cbc366c44da02629f6b785c4f
+    m_Address: Prefab/06ShopIcon/612. 4000 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1b7fb0eb04d5ab4fb7fb51b7820f98b
+    m_Address: Prefab/06ShopIcon/613. 10000 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b55bf0ff97c6c004a934753484937bfc
+    m_Address: Prefab/06ShopIcon/614. 20000 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e8edf6bb74daab41a1a163ebca95396
+    m_Address: Prefab/06ShopIcon/615. 60000 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83385b023ead69e49995647d2deb45c1
+    m_Address: Prefab/06ShopIcon/616. 100000 Golds
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 30ba070c173495146924064ac5f602b3
+    m_Address: Prefab/06GachaCharacterUI/Hound Series(2)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c006d0b067f1f624187e29a7f7b9a0aa
+    m_Address: Prefab/06GachaCharacterUI/Demon Master
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f86d796a504c14242aec3d20a762a840
+    m_Address: Prefab/06GachaCharacterUI/KEI_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0fbece3036e6ca4d9236eca07a9aaed
+    m_Address: Prefab/06GachaCharacterUI/Bandit Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1a6881a26b970749ace4ff8145fd7f4
+    m_Address: Prefab/06GachaCharacterUI/LUNA_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75e2b041e60b3c34584670b8528a7b94
+    m_Address: Prefab/06GachaCharacterUI/KEI_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc74fe5a6ad95c34fb39e515fb252c85
+    m_Address: Prefab/06GachaCharacterUI/Pirate Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd5f85c8f198fb941b079466930d985e
+    m_Address: Prefab/06GachaCharacterUI/Demon Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 445c845a22daac74c85789d44d3490c3
+    m_Address: Prefab/06GachaCharacterUI/Demon Weaver
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ec186fbaa8719a45a2c60ba956e811d
+    m_Address: Prefab/06GachaCharacterUI/KEI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e950804d2f36a14595d0b743117508d
+    m_Address: Prefab/06GachaCharacterUI/Stone Cutter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0c2e6b4e31e3e342bc04ca8117c001d
+    m_Address: Prefab/06GachaCharacterUI/PIE_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32451c55773751d4298952d120b08f2d
+    m_Address: Prefab/06GachaCharacterUI/PIE
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73fb8188989b40b4db82f03e1955d34d
+    m_Address: Prefab/06GachaCharacterUI/LUNA_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dbbaaa86509420468a06de3049e601c
+    m_Address: Prefab/06GachaCharacterUI/Bandit Elite Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecdc02839caee6f42a2190364e92806d
+    m_Address: Prefab/06GachaCharacterUI/Bandit Assassin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6610af49f1f857044a7878a9da4cbe1f
+    m_Address: Prefab/06GachaCharacterUI/Desperado
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3efa511c1d243ab4d8d75104fde9e363
+    m_Address: Prefab/06GachaCharacterUI/Pirate Axeman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6ecb1f17202345459645cb4b466b127
+    m_Address: Prefab/06GachaCharacterUI/Hound Series
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d8723e2f5d327645bf662346c64983f
+    m_Address: Prefab/06GachaCharacterUI/Hound Series(1)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ada217742ff46a4c8b48bbc0e34b2b3
+    m_Address: Prefab/06GachaCharacterUI/LUNA
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7302a41bdd187a4d8ce5a08972cad1c
+    m_Address: Prefab/06GachaCharacterUI/Pirate Artillery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e53ff0cd6556a0b418c7938ee49c84ae
+    m_Address: Prefab/06GachaCharacterUI/PIE_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6693c1e94529d6b4fa07118e5d6ce278
+    m_Address: Prefab/06GachaCharacterUI/Stone Ball
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6077a388d327b040b063b7848653a40
+    m_Address: Prefab/10UpgradeUI/16Banshee Jr
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 873df56dc70cd3646b24cbef4122d83b
+    m_Address: Prefab/10UpgradeUI/10Banshee
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c563d42c123be8248ae5ef63f6da7938
+    m_Address: Prefab/10UpgradeUI/5Orc Shaman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f2113d1f44923a449c848ee6cd15d20
+    m_Address: Prefab/10UpgradeUI/23Necromancer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd939d212be048c47becb1840dcb1a50
+    m_Address: Prefab/10UpgradeUI/11Cannon Shooter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf64ee48eea263a408b9b2a9af76bbfc
+    m_Address: Prefab/10UpgradeUI/22MIniGolem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4517d6d427ec314b94387ec6598b72a
+    m_Address: Prefab/10UpgradeUI/17Undead_Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6f32224e23b97942a0a95443417f646
+    m_Address: Prefab/10UpgradeUI/4Skeleton_Slave
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cd6b89c7486fc340823325b63b06fbe
+    m_Address: Prefab/10UpgradeUI/HpUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79927b15981bcbd4598cd51c224a8551
+    m_Address: Prefab/10UpgradeUI/SlotUnlock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cfc9871e2c97b04bac458cd960ebe86
+    m_Address: Prefab/10UpgradeUI/LockM
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2066c891cb7914846b5c1676d586e3aa
+    m_Address: Prefab/10UpgradeUI/LockL
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 281a2329d7c539d4d8b48c416b75c66e
+    m_Address: Prefab/10UpgradeUI/DragCountUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f7a92d5c66e34c44bb12597738a09ff
+    m_Address: Prefab/10UpgradeUI/DamageUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ead0a84c6c9777944ab888d66b7e9d6c
+    m_Address: Prefab/10UpgradeUI/TimeUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e626a1dddabaf6344a227b6a8f018a0c
+    m_Address: Prefab/10UpgradeUI/RangeUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c369b2e603269d458431c78f7e203fe
+    m_Address: Prefab/09SkillIcon/Bite A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd41b17aa6b10ce4ca8fb68a7ae2e94a
+    m_Address: Prefab/09SkillIcon/Buff Dot HP
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c6ba154346f17045a80ab5f1ba012bb
+    m_Address: Prefab/09SkillIcon/Healing
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56445e0fc9d948640a816740ec110420
+    m_Address: Prefab/09SkillIcon/Buff Dmg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a17fb09812ab80498e8f3be35a2be55
+    m_Address: Prefab/09SkillIcon/Lightning Slash Icon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5652b46df49d1f842ac96d814f0670e1
+    m_Address: Prefab/09SkillIcon/Star Burst
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da08e88649433cc4c865951a5e61787a
+    m_Address: Prefab/09SkillIcon/Explosion
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 875496fbb1d94f84e966fe8b4079baea
+    m_Address: Prefab/09SkillIcon/White Slash A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae7a0afa3118ffa4e94f9779d2f3d8aa
+    m_Address: Prefab/09SkillIcon/Duble Slash
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abe8752e489e76f44a20af2343b8e5d3
+    m_Address: Prefab/09SkillIcon/Bite B
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0e3fbfdec5a5474e8a0258ba12ab87f
+    m_Address: Prefab/09SkillIcon/Stab B
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1bb6b2acd1232f499cefb8fa54e97e3
+    m_Address: Prefab/09SkillIcon/DeBuff Dmg
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6fc767d06f438642a9929996782100f
+    m_Address: Prefab/09SkillIcon/Star Bomb
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32cb01c1420a8b347bb2259cd4f75398
+    m_Address: Prefab/09SkillIcon/Poison
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b8d35304a8648464d9a1a7fcb14a4e51
+    m_Address: Prefab/09SkillIcon/Lightning Storm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0697fa9b253cec84b8cbdae0d92ca8b5
+    m_Address: ActivateButtonClickAudioClipAddress
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e93ac7e02d6fee34289b505de4ad67a7
+    m_Address: EnterButtonClickAudioClipAddress
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdcf26555fd93b842a7ebd11fe0c3838
+    m_Address: NonActivateButtonClickAudioClipAddress
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cd33f999e49a52408c53bb4c9f37157
+    m_Address: Stage1Bgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3e8f2182f23169459cbdbaa837c1e50
+    m_Address: Stage2Bgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e816bebbe6d8ef4b8269b367aa4fdc0
+    m_Address: Stage3Bgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 052f4fd2ac3ec4d90b65462991e3e7ee
+    m_Address: Stage4Bgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7740e450968065d4398d1f68c4f55341
+    m_Address: Stage5Bgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a7a4d014158b41bead530ff1b5cabbb
+    m_Address: ShopBgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46cbb3b6cf5ff47e1a5d2a7e52b02695
+    m_Address: UpgradeBgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b442123a67071894ca2beeb4a6185aae
+    m_Address: LobbyBgm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 886f6b8baf882f24fb59159e4db375f2
+    m_Address: GatchaSe_Grade2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67bef1dc7735590489914a3e0f4ebdb4
+    m_Address: GatchaSe
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc6496da83eb8ca4bafe2e5b43fd12b2
+    m_Address: Prefab/09SkillIcon/Eraser
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6de41f9fc83b2f2489288b6bf82492a6
+    m_Address: Prefab/09SkillIcon/IceBall
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae7c205ee6db7034aa2e9f918c891e55
+    m_Address: Prefab/09SkillIcon/Power Shot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a95e0f3837535004a97056809364d31f
+    m_Address: Prefab/09SkillIcon/WindStorm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0e7548975b626624c90f40e1203682b5, type: 2}
   m_SchemaSet:

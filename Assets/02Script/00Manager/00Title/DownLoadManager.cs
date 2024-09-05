@@ -14,8 +14,7 @@ using UnityEngine.SceneManagement;
 
 public class DownLoadManager : MonoBehaviour
 {
-    [Header("UI")]
-    public GameObject waitMessage;
+    [Header("UI")] public GameObject waitMessage;
     public GameObject downloadMessage;
     public GameObject connectFailMessage;
     public Slider downSlider;
@@ -25,12 +24,10 @@ public class DownLoadManager : MonoBehaviour
     public Button QuitButton;
     public Button DownLoadButton;
 
-    [Header("Label")]
-    public AssetLabelReference defaultLabel;
+    [Header("Label")] public AssetLabelReference defaultLabel;
 
-    [Header("Assets")]
-    [SerializeField] private AssetReference[] assetReferences;
-    
+    [Header("Assets")] [SerializeField] private AssetReference[] assetReferences;
+
     private List<GameObject> gameObjects = new List<GameObject>();
     private long patchSize;
     private long totalDownloadedSize;
@@ -60,6 +57,7 @@ public class DownLoadManager : MonoBehaviour
                 {
                     throw new Exception("인터넷 연결 끊김");
                 }
+
                 var init = Addressables.InitializeAsync();
                 await init;
             });
@@ -72,6 +70,7 @@ public class DownLoadManager : MonoBehaviour
     }
 
     #region UpdateCheck
+
     private async UniTask CheckUpdateFiles()
     {
         var labels = new List<string>() { defaultLabel.labelString };
@@ -116,15 +115,17 @@ public class DownLoadManager : MonoBehaviour
 
         return size;
     }
+
     #endregion
 
     #region DownLoad
- private void ButtonDownloadWrapper()
+
+    private void ButtonDownloadWrapper()
     {
         ButtonDownload().Forget();
     }
 
-    public async UniTaskVoid ButtonDownload()
+    private async UniTaskVoid ButtonDownload()
     {
         try
         {
@@ -265,10 +266,9 @@ public class DownLoadManager : MonoBehaviour
 
         Addressables.Release(handle);
     }
-    
 
     #endregion
-   
+
 
     private void ShowConnectionFailedMessage()
     {
@@ -333,6 +333,7 @@ public class DownLoadManager : MonoBehaviour
                     {
                         Debug.LogError($"Failed to load PlayableAsset {t.RuntimeKey}");
                     }
+
                     Addressables.Release(load);
                 };
             }
@@ -361,6 +362,7 @@ public class DownLoadManager : MonoBehaviour
                     {
                         Debug.LogError($"Failed to load GameObject {t.RuntimeKey}");
                     }
+
                     Addressables.Release(load);
                 };
             }
@@ -378,10 +380,11 @@ public class DownLoadManager : MonoBehaviour
                     {
                         Debug.LogError($"Failed to load InputAction {t.RuntimeKey}");
                     }
+
                     Addressables.Release(load);
                 };
             }
-            
+
             // 필요한 경우 다른 자산 유형에 대해 else-if 블록을 추가
         }
     }
@@ -390,6 +393,4 @@ public class DownLoadManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    
-    
 }

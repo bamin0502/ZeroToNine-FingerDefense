@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
-
 
 public class StageSlot : MonoBehaviour
 {
@@ -24,6 +23,9 @@ public class StageSlot : MonoBehaviour
     private GameObject deckMask;
     private GameObject dragMask;
     private GameManager gameManager;
+    
+    public GameObject firstRewardImage;
+    public GameObject clearImage; 
 
     [SerializeField] private GameObject deckUI;
     private StagePanelController stagePanelController;
@@ -66,12 +68,11 @@ public class StageSlot : MonoBehaviour
 
     public void Configure(StageData stageData)
     {
-        //해당 슬롯에 스테이지 이름 설정 =>stageData.StageNameId을 토대로 StringTable에서 찾아서 가져오기 
-        stageNameText.text =
-            DataTableManager.Get<StringTable>(DataTableIds.String).Get(stageData.StageNameId.ToString());
+        //해당 슬롯에 스테이지 이름 설정 => stageData.StageNameId을 토대로 StringTable에서 찾아서 가져오기 
+        stageNameText.text = DataTableManager.Get<StringTable>(DataTableIds.String).Get(stageData.StageNameId.ToString());
         monsterText.text = DataTableManager.Get<StringTable>(DataTableIds.String).Get(98921.ToString());
         rewardText.text = DataTableManager.Get<StringTable>(DataTableIds.String).Get(98931.ToString());
-
+        
         StageId = stageData.StageId;
         if (stageData.Monster1Id != 0) AddMonsterSlot(stageData.Monster1Id);
         if (stageData.Monster2Id != 0) AddMonsterSlot(stageData.Monster2Id);
@@ -82,6 +83,7 @@ public class StageSlot : MonoBehaviour
             AddRewardSlot(stageData.Reward1Id, stageData.Reward1Value);
         if (stageData.Reward2Id != 0 && stageData.Reward2Value != 0)
             AddRewardSlot(stageData.Reward2Id, stageData.Reward2Value);
+        
     }
 
     private void AddMonsterSlot(int monsterId)
@@ -96,63 +98,31 @@ public class StageSlot : MonoBehaviour
         string prefabName = assetListTable.Get(monsterId);
         if (!string.IsNullOrEmpty(prefabName))
         {
-            // Resources.Load를 사용하여 프리팹 로드 ,To-Do: Addressable로 변경 예정
-            GameObject monsterPrefab = Resources.Load<GameObject>($"Prefab/01MonsterUI/{prefabName}");
-            if (monsterPrefab != null)
+            // Addressables를 사용하여 프리팹 로드
+            Addressables.LoadAssetAsync<GameObject>($"Prefab/01MonsterUI/{prefabName}").Completed += handle =>
             {
-                var monsterSlot = Instantiate(monsterSlotPrefab, monsterSlotParent);
-                var monsterInstance = Instantiate(monsterPrefab, monsterSlot.transform); // monsterSlot의 자식으로 추가
-                monsterInstance.transform.localPosition = new Vector3(0, 3, 0); // 필요한 경우 위치 조정
-                monsterInstance.transform.localScale = Vector3.one; // 필요한 경우 스케일 조정
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    GameObject monsterPrefab = handle.Result;
+                    var monsterSlot = Instantiate(monsterSlotPrefab, monsterSlotParent);
+                    var monsterInstance = Instantiate(monsterPrefab, monsterSlot.transform); // monsterSlot의 자식으로 추가
+                    monsterInstance.transform.localPosition = new Vector3(0, 3, 0); // 필요한 경우 위치 조정
+                    monsterInstance.transform.localScale = Vector3.one; // 필요한 경우 스케일 조정
 
-                var monsterText = monsterSlot.GetComponentInChildren<TextMeshProUGUI>();
-                //monsterText.text = monsterId.ToString();
-            }
-            else
-            {
-                Logger.LogWarning($"Prefab not found for {prefabName}");
-            }
+                    var monsterText = monsterSlot.GetComponentInChildren<TextMeshProUGUI>();
+                    //monsterText.text = monsterId.ToString();
+                }
+                else
+                {
+                    Logger.LogWarning($"Prefab not found for {prefabName}");
+                }
+            };
         }
         else
         {
             Logger.LogWarning($"Prefab name not found for Monster ID: {monsterId}");
         }
-
-        // TO-DO: Addressable로 변경 예정 
-        // if (assetListTable == null)
-        // {
-        //     Logger.LogError("AssetListTable is not set.");
-        //     return;
-        // }
-        //
-        // // AssetListTable을 사용하여 프리팹 이름 가져오기
-        // string prefabName = assetListTable.Get(monsterId);
-        // if (!string.IsNullOrEmpty(prefabName))
-        // {
-        //     // Addressables를 사용하여 프리팹 로드
-        //     Addressables.LoadAssetAsync<GameObject>($"Prefab/01MonsterUI/{prefabName}").Completed += handle =>
-        //     {
-        //         if (handle.Status == AsyncOperationStatus.Succeeded)
-        //         {
-        //             GameObject monsterPrefab = handle.Result;
-        //             var monsterSlot = Instantiate(monsterSlotPrefab, monsterSlotParent);
-        //             var monsterInstance = Instantiate(monsterPrefab, monsterSlot.transform); // monsterSlot의 자식으로 추가
-        //             monsterInstance.transform.localPosition = new Vector3(0, 3, 0); // 필요한 경우 위치 조정
-        //             monsterInstance.transform.localScale = Vector3.one; // 필요한 경우 스케일 조정
-        //
-        //             var monsterText = monsterSlot.GetComponentInChildren<TextMeshProUGUI>();
-        //             //monsterText.text = monsterId.ToString();
-        //         }
-        //         else
-        //         {
-        //             Logger.LogWarning($"Prefab not found for {prefabName}");
-        //         }
-        //     };
-        // }
-        // else
-        // {
-        //     Logger.LogWarning($"Prefab name not found for Monster ID: {monsterId}");
-        // }
+        
     }
 
     private void AddRewardSlot(int rewardId, int rewardValue)
@@ -164,7 +134,7 @@ public class StageSlot : MonoBehaviour
         // AssetListTable에서 리워드에 해당하는 프리팹 경로 또는 스프라이트 이름 가져오기
         string assetPath = assetListTable.Get(rewardId);
 
-        if (rewardId == 409 || rewardId == 410 || rewardId == 416)
+        if (rewardId == 409 || rewardId == 424 || rewardId == 416)
         {
             // 이미지 비활성화
             rewardImage.gameObject.SetActive(false);
@@ -172,22 +142,24 @@ public class StageSlot : MonoBehaviour
             // AssetListTable에서 경로를 가져와 게임 오브젝트 스폰
             if (!string.IsNullOrEmpty(assetPath))
             {
-                GameObject rewardPrefab = Resources.Load<GameObject>($"Prefab/00CharacterUI/{assetPath}");
-                if (rewardPrefab != null)
+                Addressables.LoadAssetAsync<GameObject>($"Prefab/00CharacterUI/{assetPath}").Completed += handle =>
                 {
-                    // rewardSlot의 자식으로 오브젝트 인스턴스화
-                    var rewardInstance = Instantiate(rewardPrefab, rewardSlot.transform);
-                    var localPosition = Vector3.zero; // 부모의 중심에 배치
-                    rewardInstance.transform.localScale = Vector3.one; // 스케일을 기본값으로 설정
+                    if (handle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        GameObject rewardPrefab = handle.Result;
+                        var rewardInstance = Instantiate(rewardPrefab, rewardSlot.transform);
+                        var localPosition = Vector3.zero; // 부모의 중심에 배치
+                        rewardInstance.transform.localScale = Vector3.one; // 스케일을 기본값으로 설정
 
-                    // 필요하다면 추가적인 위치 조정
-                    localPosition += new Vector3(0, 3, 0); // 필요한 경우 위치 조정
-                    rewardInstance.transform.localPosition = localPosition;
-                }
-                else
-                {
-                    Logger.LogWarning($"Prefab not found for Reward ID: {rewardId} at path {assetPath}");
-                }
+                        // 필요하다면 추가적인 위치 조정
+                        localPosition += new Vector3(0, 3, 0); // 필요한 경우 위치 조정
+                        rewardInstance.transform.localPosition = localPosition;
+                    }
+                    else
+                    {
+                        Logger.LogWarning($"Prefab not found for Reward ID: {rewardId} at path {assetPath}");
+                    }
+                };
             }
             else
             {
@@ -196,22 +168,24 @@ public class StageSlot : MonoBehaviour
         }
         else if (!string.IsNullOrEmpty(assetPath))
         {
-            // Resources 폴더에서 스프라이트 로드하여 Image 컴포넌트에 할당
-            Sprite loadedSprite = Resources.Load<Sprite>($"Prefab/06ShopIcon/{assetPath}");
-            if (loadedSprite != null)
+            // Addressables를 사용하여 스프라이트 로드
+            Addressables.LoadAssetAsync<Sprite>($"Prefab/06ShopIcon/{assetPath}").Completed += handle =>
             {
-                rewardImage.sprite = loadedSprite; // 이미지 할당
-            }
-            else
-            {
-                Logger.LogWarning($"Sprite not found for Reward ID: {rewardId} at path {assetPath}");
-            }
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Sprite loadedSprite = handle.Result;
+                    rewardImage.sprite = loadedSprite; // 이미지 할당
+                }
+                else
+                {
+                    Logger.LogWarning($"Sprite not found for Reward ID: {rewardId} at path {assetPath}");
+                }
+            };
         }
         else
         {
             Logger.LogWarning($"Asset name not found for Reward ID: {rewardId}");
         }
-
         // 리워드 값 텍스트 설정
         rewardText.text = $"{rewardValue}";
     }
@@ -233,7 +207,7 @@ public class StageSlot : MonoBehaviour
         // 이전 스테이지가 클리어되었는지 확인 (첫 번째 스테이지는 예외 처리됨)
         bool isPreviousStageCleared =
             gameManager.GameData.StageClear.TryGetValue(StageId - 1, out bool previousCleared) && previousCleared;
-
+        
         if (isStageCleared || isPreviousStageCleared)
         {
             LoadStage(); // 스테이지를 로드하는 공통 메서드 호출
@@ -242,11 +216,13 @@ public class StageSlot : MonoBehaviour
         else
         {
             // 스테이지가 클리어되지 않았을 때 모달 창 띄우기
-            ModalWindow.Create()
-                .SetHeader("스테이지 잠금")
-                .SetBody("이전 스테이지를 클리어해야 이용할 수 있습니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("스테이지 잠금")
+                    .SetBody("이전 스테이지를 클리어해야 이용할 수 있습니다.")
+                    .AddButton("확인", () => { })
+                    .Show();
+            });
         }
     }
 

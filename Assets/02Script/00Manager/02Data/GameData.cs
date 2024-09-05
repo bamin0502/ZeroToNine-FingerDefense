@@ -151,16 +151,20 @@ public class GameData : IResourceSubject
     
     
     public int StageClearNum; //스테이지 클리어 한 최종 ID
-    public int stageClearNum
+    private int stageClearNum
     {
         get => StageClearNum;
         set => StageClearNum = value;
     }
     
+    //플레이어가 소유한 가챠 ID
     public List<int> ObtainedGachaIDs = new List<int>();
-    
+    //플레이어가 소유한 캐릭터 ID
+    public List<int> characterIds = new List<int>();
+    //스테이지 클리어 여부
     public Dictionary<int, bool> StageClear = new();
 
+    #region MonsterDrag
     public enum MonsterDrag
     {
         NONE = -1,
@@ -169,10 +173,12 @@ public class GameData : IResourceSubject
         ACTIVE=2,
     }
     MonsterDrag monsterDrag;
-    
-    
     public Dictionary<int, int> MonsterDragLevel = new ();
     
+
+    #endregion
+    
+    #region MonsterGimmick
     public enum MonsterGimmick
     {
         NONE = -1,
@@ -193,7 +199,9 @@ public class GameData : IResourceSubject
             }
         }
     }
-    
+    #endregion
+
+    #region PlayerUpgrade
     public enum PlayerUpgrade
     {
         NONE = -1,
@@ -214,7 +222,9 @@ public class GameData : IResourceSubject
             }
         }
     }
+    #endregion
 
+    #region Item
     public void AddItem(int itemId, int itemCount)
     {
         //리스트로 인덱스 참조해서 개수 증가 시키도록 수정
@@ -237,25 +247,12 @@ public class GameData : IResourceSubject
 
         NotifyObservers(ResourceType.ItemId, itemId);
         NotifyObservers(ResourceType.ItemCount, Items[itemIndex].itemCount);
-        
-        
     }
     public List<(int itemId, int itemCount)> Items = new List<(int, int)>();
-    public void RemoveItem(int itemId, int itemCount)
-    {
-        var existingItem = Items.Find(item => item.itemId == itemId);
-        if (existingItem != (0, 0))
-        {
-            existingItem.itemCount -= itemCount;
-            if (existingItem.itemCount <= 0)
-            {
-                Items.Remove(existingItem);
-            }
-        }
-    }
-    public List<int> characterIds = new List<int>();
+    #endregion
+    
+    #region ObserverPattern
     private List<IResourceObserver> observers = new List<IResourceObserver>();
-
     // 옵저버 패턴 관련 메서드
     public void RegisterObserver(IResourceObserver observer)
     {
@@ -280,6 +277,10 @@ public class GameData : IResourceSubject
             observer.OnResourceUpdate(resourceType, newValue);
         }
     }
+    
+
+    #endregion
+    
 
     public void Init()
     {

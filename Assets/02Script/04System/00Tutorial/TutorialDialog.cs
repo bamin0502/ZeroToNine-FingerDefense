@@ -1,4 +1,3 @@
-using Coffee.UIExtensions;
 using UnityEngine;
 
 [RequireComponent(typeof(DialogSystem))]
@@ -18,6 +17,7 @@ public class TutorialDialog : TutorialBase
             {
                 systemDialog.skeletonGraphic.gameObject.SetActive(true);    
             }
+            
             systemDialog.nameText.gameObject.SetActive(true);
             systemDialog.dialogText.gameObject.SetActive(true);
         }

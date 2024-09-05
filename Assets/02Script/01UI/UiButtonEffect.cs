@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UiButtonEffect : MonoBehaviour
 {
@@ -31,11 +28,7 @@ public class UiButtonEffect : MonoBehaviour
 
     private Vector2 previousSize;
     public Vector2 intialScale;
-
-    private void Awake()
-    {
-        // intialScale = transform.localScale;
-    }
+    
 
     private void Update()
     {

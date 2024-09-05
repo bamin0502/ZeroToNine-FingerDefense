@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using Cysharp.Threading.Tasks;
 
 public class ItemManager : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         SetItemList();
-        CreateItemButton();
+        CreateItemButton().Forget();
     }
 
     private void OnEnable()
@@ -74,7 +73,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    private void CreateItemButton()
+    private async UniTaskVoid CreateItemButton()
     {
         var assetListTable = DataTableManager.Get<AssetListTable>(DataTableIds.Asset);
         var stringTable = DataTableManager.Get<StringTable>(DataTableIds.String);
@@ -93,9 +92,14 @@ public class ItemManager : MonoBehaviour
             itemButton.text.text = itemName;
 
             var itemFilePath = assetListTable.Get(itemData.IconNo);
-            var itemImage = Resources.Load<Sprite>($"Prefab/07GameItem/{itemFilePath}");
-            if (itemImage)
+            // Addressables를 사용하여 스프라이트를 비동기 로드
+            var handle = Addressables.LoadAssetAsync<Sprite>($"Prefab/07GameItem/{itemFilePath}");
+            Sprite itemImage = await handle.ToUniTask(); // UniTask를 사용하여 비동기 처리
+
+            if (itemImage != null)
+            {
                 itemButton.GetComponent<UiSlotButton>().slotImage.sprite = itemImage;
+            }
             
             items[i].button = itemButton;
 

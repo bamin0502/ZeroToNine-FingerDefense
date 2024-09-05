@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Demo_Project;
 using UnityEngine;
 using UnityEngine.Audio;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class StartIconMove : MonoBehaviour
+public class IconMove : MonoBehaviour
 {
     public Image icon;                    // 움직일 아이콘
     public Vector3 moveDistance = new Vector3(0, 20f, 0);  // 이동할 거리 (X, Y, Z 방향)

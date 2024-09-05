@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class MonsterDragPanel : MonoBehaviour
 {
@@ -66,17 +68,19 @@ public class MonsterDragPanel : MonoBehaviour
                 if (!string.IsNullOrEmpty(assetName))
                 {
                     string assetPath = $"Prefab/10UpgradeUI/{assetName}";
-                    GameObject assetObject = Resources.Load<GameObject>(assetPath);
-
-                    if (assetObject != null)
+                    Addressables.LoadAssetAsync<GameObject>(assetPath).Completed += (AsyncOperationHandle<GameObject> handle) =>
                     {
-                        var monster = Instantiate(assetObject, slot.transform);
-                        monster.transform.SetAsFirstSibling();
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"AssetName {assetName}에 해당하는 오브젝트를 찾을 수 없습니다.");
-                    }
+                        if (handle.Status == AsyncOperationStatus.Succeeded)
+                        {
+                            var assetObject = handle.Result;
+                            var monster = Instantiate(assetObject, slot.transform);
+                            monster.transform.SetAsFirstSibling();
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"AssetName {assetName}에 해당하는 오브젝트를 Addressables에서 찾을 수 없습니다.");
+                        }
+                    };
                 }
                 else
                 {

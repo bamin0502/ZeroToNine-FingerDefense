@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class TutorialNickCheck : TutorialBase
 {
-    
     public override void Enter()
     {
         GameManager.instance.GameData.NicknameCheck = true;

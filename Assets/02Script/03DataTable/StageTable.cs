@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -19,8 +18,6 @@ public class StageData
     public int Reward1Value { get; set; }
     public int Reward2Id { get; set; }
     public int Reward2Value { get; set; }
-    
-
 }
 
 public class StageTable : DataTable

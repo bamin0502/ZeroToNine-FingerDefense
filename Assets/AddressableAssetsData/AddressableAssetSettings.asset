@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 6de49696ac7a0ec44b0d29ede4d8c884
   m_currentHash:
     serializedVersion: 2
-    Hash: 2d2d5be7f593da67227983f9e1837e6c
+    Hash: 96d0a68dfb4d6b78f5817819e163f336
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 1
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_Id: 3bb2268d798679047b622d024b52242e
   m_RemoteCatalogLoadPath:
     m_Id: 69a073e1db7dc8543bdbe12c340db303
-  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_ContentStateBuildPathProfileVariableName: Remote.LoadPath
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
       - m_Id: 3bb2268d798679047b622d024b52242e
         m_Value: ServerData/[BuildTarget]
       - m_Id: 69a073e1db7dc8543bdbe12c340db303
-        m_Value: https://zerotonine-fingerdefense.s3.ap-northeast-2.amazonaws.com/
+        m_Value: https://zerotonint-fingerdefense.s3.amazonaws.com/[BuildTarget]
     - m_InheritedParent: 
       m_Id: 305267c784221914c986242f56e86c5e
       m_ProfileName: AWS
@@ -81,7 +81,7 @@ MonoBehaviour:
       - m_Id: 3bb2268d798679047b622d024b52242e
         m_Value: ServerData/[BuildTarget]
       - m_Id: 69a073e1db7dc8543bdbe12c340db303
-        m_Value: https://zerotonine-fingerdefense.s3.ap-northeast-2.amazonaws.com/
+        m_Value: https://zerotonint-fingerdefense.s3.amazonaws.com/
     m_ProfileEntryNames:
     - m_Id: 644f80d68b443944287e71aceab799ae
       m_Name: BuildTarget
@@ -120,5 +120,6 @@ MonoBehaviour:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
-    m_RegisteredServiceTypeRefs: []
+    m_RegisteredServiceTypeRefs:
+    - UnityEditor.AddressableAssets.HostingServices.HttpHostingService, Unity.Addressables.Editor
     m_PingTimeoutInMilliseconds: 5000

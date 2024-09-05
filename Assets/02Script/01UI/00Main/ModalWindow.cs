@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ModalWindow : MonoBehaviour
 {
@@ -17,19 +19,31 @@ public class ModalWindow : MonoBehaviour
         stringTable ??= DataTableManager.Get<StringTable>(DataTableIds.String);
     }
 
-    public static ModalWindow Create()
+    public static void Create(Action<ModalWindow> onCreated)
     {
-        var window = Instantiate(Resources.Load<ModalWindow>("Prefab/08Main/ModalWindow"));
-        var canvas = FindObjectOfType<Canvas>();
-        if (canvas != null)
+        Addressables.LoadAssetAsync<GameObject>("Prefab/08Main/ModalWindow").Completed += handle =>
         {
-            window.transform.SetParent(canvas.transform, false);
-        }
-        else
-        {
-            Logger.LogError("Canvas not found in the scene. Make sure there is a Canvas in the scene.");
-        }
-        return window;   
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                var prefab = handle.Result;
+                var window = Instantiate(prefab).GetComponent<ModalWindow>();
+                var canvas = FindObjectOfType<Canvas>();
+                if (canvas != null)
+                {
+                    window.transform.SetParent(canvas.transform, false);
+                    window.gameObject.tag = "Modal";
+                }
+                else
+                {
+                    Logger.LogError("Canvas not found in the scene. Make sure there is a Canvas in the scene.");
+                }
+                onCreated?.Invoke(window);
+            }
+            else
+            {
+                Logger.LogError("Failed to load Modal Window prefab.");
+            }
+        };
     }
 
     // ID로 헤더 설정

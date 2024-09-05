@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,13 +49,11 @@ public class NickSettingUI : MonoBehaviour
         if (userId.Length is < 2 or > 8)
         {
             ShowNotice("닉네임은 2자 이상 8자 이하로 입력해주세요.");
-            Logger.Log("닉네임은 2자 이상 8자 이하로 입력해주세요.");
             return;
         }
         if (!koreanFullSyllablesRegex.IsMatch(userId))
         {
             ShowNotice("닉네임은 한글 음절, 영어, 숫자만 입력 가능합니다.");
-            Logger.Log("닉네임은 한글 음절, 영어, 숫자만 입력 가능합니다.");
             return;
         }
         
@@ -65,26 +62,22 @@ public class NickSettingUI : MonoBehaviour
         nickCheckUI.SetActive(true);
         nickNameText.text = $"정말 <color=#FF0000>{gameManager.GameData.PlayerName}</color>으로 설정하시겠습니까?";
         
-        Logger.Log($"{gameManager.GameData.PlayerName}으로 설정되었습니다.");
     }
 
     private void OnClickCancel()
     {
         if (gameManager == null || gameManager.GameData == null)
         {
-            Debug.LogError("GameManager or ResourceManager is not initialized.");
             return;
         }
 
         nickCheckUI.SetActive(false);
         gameManager.GameData.PlayerName = "";
-        Logger.Log($"{gameManager.GameData.PlayerName}으로 설정되었습니다.");
     }
 
     private void OnClickConfirmNick()
     {
         gameObject.SetActive(false);
-        Logger.Log("닉네임 설정이 완료되었습니다.");
         isComplete = true;
     }
     

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Item/Active Create BlackHole", fileName = "Item.asset")]
 public class ItemActiveCreateBlackHole : ActiveItem

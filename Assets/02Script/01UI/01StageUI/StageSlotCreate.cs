@@ -19,6 +19,8 @@ public class StageSlotCreate : MonoBehaviour
     
     public Button[] stageButtons;
     
+    private bool isModalOpen = false;
+    
     private void Awake()
     {
         gameManager = GameManager.instance;
@@ -50,54 +52,45 @@ public class StageSlotCreate : MonoBehaviour
 
     private void SetStartPositionBasedOnClearedStage()
     {
-        int lastClearedStage = 0;
-        var stageClear = gameManager.GameData.StageClear;
+        // 마지막으로 클리어한 스테이지 ID를 가져옴
+        int lastClearedStage = gameManager.GameData.StageClearNum;
+    
+        // 다음으로 도전할 스테이지 ID 결정
+        int nextStageId = lastClearedStage + 1;
 
-        foreach (var kvp in stageClear)
-        {
-            if (kvp.Value)
-            {
-                lastClearedStage = kvp.Key;
-            }
-        }
-
-        // 모든 slotParents를 활성화 (모두 보이도록 함)
+        // 모든 slotParents를 비활성화 (모두 보이지 않도록 함)
         foreach (var parent in slotParents)
         {
-            parent.gameObject.SetActive(true);
+            parent.gameObject.SetActive(false);
         }
-        //클리어한 최고 스테이지가 13001-13005에 해당하는 스테이지면
-        if (lastClearedStage >= 13001 && lastClearedStage <= 13005)
+
+        // 다음으로 도전할 스테이지 ID에 따라 패널을 활성화
+        if (nextStageId >= 13021)
         {
-            ActivatePanel(0);
+            ActivatePanel(4);  // 5번째 패널 (13021-13025)
         }
-        //클리어한 최고 스테이지가 13006-13010에 해당하는 스테이지면
-        else if (lastClearedStage >= 13006 && lastClearedStage <= 13010)
+        else if (nextStageId >= 13016)
         {
-            ActivatePanel(1);
+            ActivatePanel(3);  // 4번째 패널 (13016-13020)
         }
-        //클리어한 최고 스테이지가 13011-13015에 해당하는 스테이지면
-        else if (lastClearedStage >= 13011 && lastClearedStage <= 13015)
+        else if (nextStageId >= 13011)
         {
-            ActivatePanel(2);
+            ActivatePanel(2);  // 3번째 패널 (13011-13015)
         }
-        //클리어한 최고 스테이지가 13016-13020에 해당하는 스테이지면
-        else if (lastClearedStage >= 13016 && lastClearedStage <= 13020)
+        else if (nextStageId >= 13006)
         {
-            ActivatePanel(3);
+            ActivatePanel(1);  // 2번째 패널 (13006-13010)
         }
-        //클리어한 최고 스테이지가 13021-13025에 해당하는 스테이지면
-        else if (lastClearedStage >= 13021)
+        else if (nextStageId >= 13001)
         {
-            ActivatePanel(4);
+            ActivatePanel(0);  // 1번째 패널 (13001-13005)
         }
         else
         {
-            ActivatePanel(0);
+            ActivatePanel(0);  // 기본값으로 첫 번째 패널 활성화
         }
-        
-        
     }
+
     private void ActivatePanel(int panelIndex)
     {
         // 모든 slotParents를 비활성화
@@ -117,52 +110,39 @@ public class StageSlotCreate : MonoBehaviour
         {
             stageButtons[panelIndex].interactable = true;
         }
-
-        
-        
     }
+    
     private void OnStageButtonClicked(int index)
     {
-        // 특정 스테이지가 클리어되었는지 확인 (5, 10, 15, 20)
+        // 버튼이 비활성화되었거나 모달 창이 이미 열려있다면 클릭 이벤트 무시
+        if (!stageButtons[index].interactable || isModalOpen) return;
+
+        // 스테이지 클리어 여부 체크
         var isStage5Cleared = gameManager.GameData.StageClear.TryGetValue(13005, out var stage5Cleared) && stage5Cleared;
         var isStage10Cleared = gameManager.GameData.StageClear.TryGetValue(13010, out var stage10Cleared) && stage10Cleared;
         var isStage15Cleared = gameManager.GameData.StageClear.TryGetValue(13015, out var stage15Cleared) && stage15Cleared;
         var isStage20Cleared = gameManager.GameData.StageClear.TryGetValue(13020, out var stage20Cleared) && stage20Cleared;
 
-        // 해당 index에 맞는 slotParents를 활성화할 수 있는지 여부 확인
-        bool canActivate = false;
-    
-        if (index == 0)
+        // 각 버튼의 활성화 가능 여부를 명확하게 설정
+        var canActivate = index switch
         {
-            canActivate = true;
-        }
-        else if (index == 1 && isStage5Cleared)
-        {
-            canActivate = true;
-        }
-        else if (index == 2 && isStage10Cleared)
-        {
-            canActivate = true;
-        }
-        else if (index == 3 && isStage15Cleared)
-        {
-            canActivate = true;
-        }
-        else if (index == 4 && isStage20Cleared)
-        {
-            canActivate = true;
-        }
+            0 => true,
+            1 => isStage5Cleared,
+            2 => isStage10Cleared,
+            3 => isStage15Cleared,
+            4 => isStage20Cleared,
+            _ => false
+        };
 
-        // 패널을 비활성화하기 전에 조건을 체크
         if (canActivate)
         {
-            // 모든 slotParents를 비활성화
+            // 다른 모든 패널을 비활성화
             foreach (var parent in slotParents)
             {
                 parent.gameObject.SetActive(false);
             }
 
-            // 해당 index에 맞는 slotParents만 활성화
+            // 선택한 패널만 활성화
             if (index >= 0 && index < slotParents.Length)
             {
                 slotParents[index].gameObject.SetActive(true);
@@ -170,14 +150,24 @@ public class StageSlotCreate : MonoBehaviour
         }
         else
         {
-            // 조건을 만족하지 않는 경우, 모달 창을 띄우고 기존 패널을 유지
-            ModalWindow.Create()
-                .SetHeader("잠금")
-                .SetBody("해당 스테이지를 모두 클리어해야 합니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            if(!isModalOpen)
+            {
+                isModalOpen = true;
+                ModalWindow.Create(window =>
+                {
+                    window.SetHeader("잠금")
+                        .SetBody("해당 스테이지를 모두 클리어해야 합니다.")
+                        .AddButton("확인", () => 
+                        { 
+                            isModalOpen = false;  // 모달 창이 닫힐 때 플래그 리셋
+                        })
+                        .Show();
+                });
+            }
         }
     }
+
+
     
     private void CreateStageSlots()
     {
@@ -222,16 +212,18 @@ public class StageSlotCreate : MonoBehaviour
             // 현재 스테이지가 클리어되었는지 확인
             bool isStageCleared = gameManager.GameData.StageClear.TryGetValue(stageData.StageId, out bool isCleared) && isCleared;
 
-            // 이전 스테이지가 클리어되었는지 확인
-            bool isPreviousStageCleared = true;
-            if (stageData.StageId > 1)
-            {
-                isPreviousStageCleared = gameManager.GameData.StageClear.TryGetValue(stageData.StageId - 1, out bool previousCleared) && previousCleared;
-            }
-
             // 슬롯 활성화 여부 설정
             slot.gameObject.SetActive(true);  // 슬롯은 모두 활성화
+
+            // 클리어된 스테이지인 경우 firstRewardImage와 clearImage를 활성화
+            if (isStageCleared)
+            {
+                slot.firstRewardImage.SetActive(true);
+                slot.clearImage.SetActive(true);
+            }
             
+            
+
         }
     }
 }

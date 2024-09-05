@@ -54,16 +54,18 @@ public class FallState : IState
             
             if (!controller.IsDead && !controller.IsTutorialMonster)
                 controller.TryTransitionState<PatrolState>();
+            
             else if (!controller.IsDead && controller.IsTutorialMonster)
             {
                 // 튜토리얼 몬스터가 생존한 경우 OnFallSurvived 호출
                 if (tutorialGameTrigger != null)
                 {
-                    Logger.Log("Tutorial monster survived, calling OnFallSurvived.");
                     tutorialGameTrigger.OnFallSurvived();
+                   
                 }
-                
-                controller.TryTransitionState<MoveState>();
+                controller.monsterAni.SetAnimation(MonsterSpineAni.MonsterState.IDLE, true, 1f);
+                controller.TryTransitionState<IdleState<MonsterController>>();
+                //controller.TryTransitionState<MoveState>();
             }
             else
             {

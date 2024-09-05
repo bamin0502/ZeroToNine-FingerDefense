@@ -2,8 +2,10 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class ShopSettingUI : MonoBehaviour,IResourceObserver
+public class ShopSettingUI : MonoBehaviour, IResourceObserver
 {
     public GameObject MileageWindow;
 
@@ -60,6 +62,7 @@ public class ShopSettingUI : MonoBehaviour,IResourceObserver
         
         UpdateTicketOrMileageText();
     }
+    
     private void OnDestroy()
     {
         if (gameManager != null)
@@ -88,7 +91,6 @@ public class ShopSettingUI : MonoBehaviour,IResourceObserver
     private void UpdateTicketOrMileageText()
     {
         ticketText.text = MileageWindow.activeSelf ? gameManager.GameData.Mileage.ToString() : gameManager.GameData.Ticket.ToString();
-        
     }
 
     private void LoadData()
@@ -105,24 +107,25 @@ public class ShopSettingUI : MonoBehaviour,IResourceObserver
         SetTextElements();
     }
 
-    private void SetImage(string id, Image images, string category)
+    private void SetImage(string id, Image image, string category)
     {
         string path = $"Prefab/{category}/{assetTable.Get(Convert.ToInt32(id))}";
-        Sprite sprite = Resources.Load<Sprite>(path);
-
-        if (sprite != null)
+        Addressables.LoadAssetAsync<Sprite>(path).Completed += (AsyncOperationHandle<Sprite> handle) =>
         {
-            images.sprite = sprite;
-        }
-        else
-        {
-            Logger.LogWarning($"Image not found for ID: {id} in category: {category}");
-        }
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                image.sprite = handle.Result;
+            }
+            else
+            {
+                Logger.LogWarning($"Image not found for ID: {id} in category: {category}");
+            }
+        };
     }
 
     private void SetTextElements()
     {
-        tapMenuTexts[0].text = shopTable.Get(90581.ToString());
+        tapMenuTexts[0].text = shopTable.Get(90331.ToString());
         tapMenuTexts[1].text = shopTable.Get(90591.ToString());
         tapMenuTexts[2].text = shopTable.Get(90601.ToString());
         tapMenuTexts[4].text = shopTable.Get(90611.ToString());

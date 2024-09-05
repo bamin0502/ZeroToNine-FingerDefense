@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,34 +35,46 @@ public class CharacterUpgradePanel : MonoBehaviour
         playerCharacterTable ??= DataTableManager.Get<PlayerCharacterTable>(DataTableIds.PlayerCharacter);
     }
     
-    public void Start()
+    private void OnEnable()
     {
-        RefreshPanel();       
+        GachaSystem.OnCharacterSlotUpdated += RefreshPanel;
+        RefreshPanel();
     }
+    
+    private void OnDisable()
+    {
+        GachaSystem.OnCharacterSlotUpdated -= RefreshPanel;
+    }
+    
     public void RefreshPanel()
     {
-        obtainedGachaIds = GameManager.instance.GameData.ObtainedGachaIDs;
-        LoadUpgradableCharacters();
+        obtainedGachaIds = GameManager.instance.GameData.characterIds;
+        LoadUpgradableCharacters(obtainedGachaIds);
     }
-    private void LoadUpgradableCharacters()
+    
+    private void LoadUpgradableCharacters(List<int> obtainedCharacterIds)
     {
-        // 기존 슬롯 초기화
         ClearSlot(characterUpgradeSlotContent);
 
-        foreach (var upgradeData in upgradeTable.upgradeTable.Values)
+        foreach (var characterId in obtainedCharacterIds)
         {
-            if (upgradeData.Type == 2 && obtainedGachaIds.Contains(upgradeData.NeedCharId))
+            var characterData = playerCharacterTable.Get(characterId);
+            if (characterData != null)
             {
-                var characterData = playerCharacterTable.Get(upgradeData.NeedCharId);
-                if (characterData != null)
+                var upgradeData = upgradeTable.upgradeTable.Values.FirstOrDefault(up => up.NeedCharId == characterId);
+
+                // 업그레이드가 가능한 캐릭터만 슬롯에 추가
+                if (upgradeData != null)
                 {
                     var characterSlot = Instantiate(characterUpgradeSlot, characterUpgradeSlotContent);
                     characterSlot.SetCharacterSlot(characterData);
+
                     characterSlot.OnSlotClick = (slot) => DisplayUpgradeOptions(upgradeData, characterData);
                 }
             }
         }
     }
+
 
     private void DisplayUpgradeOptions(UpgradeData upgradeData, PlayerCharacterData characterData)
     {
@@ -72,28 +84,36 @@ public class CharacterUpgradePanel : MonoBehaviour
         ClearSlot(characterUpgradeSlotParent); // 기존 슬롯 비우기
         var selectedSlot = Instantiate(characterUpgradeSlot, characterUpgradeSlotParent);
         selectedSlot.SetCharacterSlot(characterData);
-
+        selectedSlot.powerText.transform.SetAsLastSibling();
+        selectedSlot.upgradeLevelText.transform.SetAsLastSibling();
+        
         // 앵커 값을 중앙으로 설정하고, 스케일을 2로 조정
         RectTransform selectedSlotRect = selectedSlot.GetComponent<RectTransform>();
         selectedSlotRect.anchorMin = new Vector2(0.5f, 0.5f); // 중앙 앵커
         selectedSlotRect.anchorMax = new Vector2(0.5f, 0.5f); // 중앙 앵커
         selectedSlotRect.pivot = new Vector2(0.5f, 0.5f); // 피벗도 중앙으로 설정
-        selectedSlotRect.localScale = new Vector3(2f, 2f, 2f); // 스케일을 2로 설정
+        selectedSlotRect.localPosition = Vector3.zero; // 부모의 중앙으로 위치 설정
+        selectedSlotRect.localScale = Vector3.one * 2; // 스케일 2배로 설정
         
         // UpgradeResultId를 기반으로 업그레이드 결과 표시
-        ClearSlot(characterUpgradeResultSlotContent); // 기존 결과 슬롯 비우기
+        ClearSlot(characterUpgradeResultSlotContent); 
+        
         var resultCharacterData = playerCharacterTable.Get(upgradeData.UpgradeResultId);
         if (resultCharacterData != null)
         {
             var resultSlot = Instantiate(characterUpgradeSlot, characterUpgradeResultSlotContent);
             resultSlot.SetCharacterSlot(resultCharacterData);
+
+            resultSlot.powerText.transform.SetAsLastSibling();
+            resultSlot.upgradeLevelText.transform.SetAsLastSibling();
             
             // 앵커 값과 스케일을 동일하게 설정
             RectTransform resultSlotRect = resultSlot.GetComponent<RectTransform>();
             resultSlotRect.anchorMin = new Vector2(0.5f, 0.5f); 
             resultSlotRect.anchorMax = new Vector2(0.5f, 0.5f);
             resultSlotRect.pivot = new Vector2(0.5f, 0.5f);
-            resultSlotRect.localScale = new Vector3(2f, 2f, 2f);
+            resultSlotRect.localPosition = Vector3.zero; // 부모의 중앙으로 위치 설정
+            resultSlotRect.localScale = Vector3.one * 2; // 스케일 2배로 설정
             
             characterUpgradeResultText.text = stringTable.Get(upgradeData.Name.ToString()); // 업그레이드 설명 표시
         }
@@ -104,7 +124,6 @@ public class CharacterUpgradePanel : MonoBehaviour
         // 업그레이드 버튼 활성화 또는 비활성화
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(TryUpgradeCharacter);
-        Logger.Log($"Upgrade button added listener for {upgradeData.Name}");
     }
 
     private void TryUpgradeCharacter()
@@ -116,46 +135,49 @@ public class CharacterUpgradePanel : MonoBehaviour
         // 현재 버튼에 해당하는 업그레이드 가격과 스테이지 조건을 검사
         if (playerGold >= selectedUpgradeData.UpgradePrice)
         {
-            ModalWindow.Create()
-                .SetHeader("구매 확인")
-                .SetBody($"{selectedUpgradeData.UpgradePrice} 골드를 사용해서 업그레이드를 진행하시겠습니까?")
-                .AddButton("확인", () =>
-                {
-                    GameManager.instance.GameData.Gold -= selectedUpgradeData.UpgradePrice;
-                    ApplyUpgrade(selectedUpgradeData);
-                })
-                .AddButton("취소", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("업그레이드 확인")
+                    .SetBody("정말 업그레이드 하시겠습니까?")
+                    .AddButton("확인", () => ApplyUpgrade(selectedUpgradeData))
+                    .AddButton("취소", () => { });
+            });
         }
         else
         {
-            ModalWindow.Create()
-                .SetHeader("구매 실패")
-                .SetBody("골드가 부족합니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("업그레이드 실패")
+                    .SetBody("골드가 부족합니다.")
+                    .AddButton("확인", () => { });
+            });
         }
     }
 
     private void ApplyUpgrade(UpgradeData upgradeData)
     {
         // 업그레이드 적용 로직 (예: 캐릭터의 등급을 업그레이드)
-        var existingIndex = GameManager.instance.GameData.ObtainedGachaIDs.IndexOf(upgradeData.NeedCharId);
+        var existingIndex = GameManager.instance.GameData.characterIds.IndexOf(upgradeData.NeedCharId);
         if (existingIndex >= 0)
         {
-            GameManager.instance.GameData.ObtainedGachaIDs[existingIndex] = upgradeData.UpgradeResultId;
+            GameManager.instance.GameData.characterIds[existingIndex] = upgradeData.UpgradeResultId;
         }
+        
         // 업그레이드 이벤트 호출
         OnCharacterUpgraded?.Invoke(upgradeData.NeedCharId, upgradeData.UpgradeResultId);
         // 데이터 저장
+        GameManager.instance.GameData.Gold -= upgradeData.UpgradePrice;
         DataManager.SaveFile(GameManager.instance.GameData);
+        
         upgradeButton.onClick.RemoveAllListeners(); // 업그레이드 버튼 리스너 제거
         // UI 갱신
         ClearSlot(characterUpgradeSlotParent);
         ClearSlot(characterUpgradeResultSlotContent);
         characterUpgradeGoldText.text = "";
         characterUpgradeResultText.text = "";
-        LoadUpgradableCharacters();  // 업그레이드 가능한 캐릭터 목록 다시 로드
+        
+        LoadUpgradableCharacters(obtainedGachaIds);  // 업그레이드 가능한 캐릭터 목록 다시 로드
+        
     }
 
 

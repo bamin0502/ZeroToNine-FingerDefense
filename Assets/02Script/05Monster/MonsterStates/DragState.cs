@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DragState : IState
@@ -14,6 +12,7 @@ public class DragState : IState
 
     private float limitCastleX;
     private float limitCameraX = 10f;
+    private float limitCameraOffset= 0.4f;
     
     private TutorialGameTrigger tutorialGameTrigger;
 
@@ -60,7 +59,7 @@ public class DragState : IState
         if (Camera.main != null && Camera.main.TryGetComponent<GameCameraController>(out var cameraController))
         {
             cameraController.ZoomOutCamera();
-            limitCameraX = cameraController.transform.position.x + cameraController.targetWidth / 2f;
+            limitCameraX = cameraController.transform.position.x + cameraController.targetWidth / 2f - limitCameraOffset;
         }
         
         // 드래그 시작 시점에서 튜토리얼 몬스터인 경우에만 OnDragStarted 호출

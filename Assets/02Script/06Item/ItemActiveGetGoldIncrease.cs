@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item/Active Increase Gold", fileName = "Item.asset")]
@@ -26,6 +24,6 @@ public class ItemActiveGetGoldIncrease : ActiveItem
         if (!StageMgr)
             return;
 
-        StageMgr.goldMultiplier = multiplier;
+        StageMgr.GoldMultiplier = multiplier;
     }
 }

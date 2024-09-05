@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class BgmSound : MonoBehaviour
 {
     private MainBgmSound bgmManager;
-    public AudioClip bgm;
+    public string bgmAddress; 
     public bool isAutoPlay;
 
     private void OnEnable()
@@ -15,25 +15,39 @@ public class BgmSound : MonoBehaviour
 
         if (isAutoPlay)
         {
-            bgmManager?.PlayAudioClip(bgm);
+            LoadAndPlayBgm();
         }
     }
 
     private void OnDisable()
     {
-        if (isAutoPlay)
-        {
-            bgmManager?.PlayMainBgm();
-        }
+        bgmManager?.StopAudioClip();
     }
 
     public void PlayBgm()
     {
-        bgmManager?.PlayAudioClip(bgm);
+        LoadAndPlayBgm();
     }
 
-    public void PlayMainBgm()
+    private void LoadAndPlayBgm()
     {
-        bgmManager?.PlayMainBgm();
+        if (!string.IsNullOrEmpty(bgmAddress))
+        {
+            Addressables.LoadAssetAsync<AudioClip>(bgmAddress).Completed += handle =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    bgmManager?.PlayAudioClip(handle.Result);
+                }
+                else
+                {
+                    Debug.LogWarning($"Failed to load BGM with address: {bgmAddress}");
+                }
+            };
+        }
+        else
+        {
+            Debug.LogWarning("BGM Address is not set.");
+        }
     }
 }

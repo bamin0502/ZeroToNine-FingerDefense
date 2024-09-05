@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Spine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +14,8 @@ public class PlayerAttackBehavior : MonoBehaviour
             skillAttack = value;
             if (skillAttack != null)
                 skillAttack.coolTimeBar = skillAttackCoolTimeBar;
+            else
+                skillAttackCoolTimeBar?.transform.parent?.gameObject.SetActive(false);
         }
     }
 

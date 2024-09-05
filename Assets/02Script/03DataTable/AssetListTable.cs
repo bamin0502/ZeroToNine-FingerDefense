@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using CsvHelper;
 using System.IO;
 using System.Globalization;
-
 
 public class AssetData
 {
@@ -27,7 +25,6 @@ public class AssetListTable : DataTable
         path = string.Format(FormatPath, path);
 
         var textAsset = Addressables.LoadAssetAsync<TextAsset>(path).WaitForCompletion();
-        //var textAsset = Resources.Load<TextAsset>(path);
 
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))

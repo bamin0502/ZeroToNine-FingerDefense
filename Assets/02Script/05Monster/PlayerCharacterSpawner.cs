@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
-using UnityEngine.InputSystem;
+using UnityEngine.AddressableAssets;
 
 public class PlayerCharacterSpawner : MonoBehaviour
 {
@@ -42,12 +42,13 @@ public class PlayerCharacterSpawner : MonoBehaviour
             if (Variables.LoadTable.characterIds[i] != 0)
             {
                 var data = playerCharacterTable.Get(Variables.LoadTable.characterIds[i]);
-                playerCharacters[i] = CreatePlayerCharacter(data);
-                CreateUICharacter(data, i);
+                var i1 = i;
+                _ = CreatePlayerCharacter(data).ContinueWith(result => playerCharacters[i1] = result); // 비동기 생성 호출
+                CreateUICharacter(data, i).Forget(); // 비동기 UI 생성 호출
             }
             else
             {
-                CreateUICharacter(null, i);
+                CreateUICharacter(null, i).Forget(); // 비동기 UI 생성 호출
             }
         }
     }
@@ -102,7 +103,7 @@ public class PlayerCharacterSpawner : MonoBehaviour
         }
     }
 
-    private void CreateUICharacter(PlayerCharacterData data, int index)
+    private async UniTaskVoid CreateUICharacter(PlayerCharacterData data, int index)
     {
         var uiCharacter = Instantiate(playerUICharacterPrefab, playerUICharacterParent);
         if (data != null)
@@ -114,7 +115,9 @@ public class PlayerCharacterSpawner : MonoBehaviour
                 return;
             }
 
-            var uiAsset = Resources.Load<GameObject>($"Prefab/00CharacterUI/{assetName}");
+            // Addressables를 통해 UI 캐릭터 프리팹 로드
+            var uiAssetHandle = Addressables.LoadAssetAsync<GameObject>($"Prefab/00CharacterUI/{assetName}");
+            var uiAsset = await uiAssetHandle.Task;
             if (uiAsset == null)
             {
                 Logger.LogError($"UI Prefab not found for asset name {assetName}");
@@ -122,7 +125,6 @@ public class PlayerCharacterSpawner : MonoBehaviour
             }
 
             Instantiate(uiAsset, uiCharacter.transform).transform.SetAsFirstSibling();
-            // uiAsset.transform.SetSiblingIndex(uiAsset.transform.parent.childCount - 1);
         }
         else
         {
@@ -137,7 +139,7 @@ public class PlayerCharacterSpawner : MonoBehaviour
         }
     }
 
-    private PlayerCharacterController CreatePlayerCharacter(PlayerCharacterData data)
+    private async UniTask<PlayerCharacterController> CreatePlayerCharacter(PlayerCharacterData data)
     {
         if (data == null)
         {
@@ -152,7 +154,9 @@ public class PlayerCharacterSpawner : MonoBehaviour
             return null;
         }
 
-        var prefab = Resources.Load<GameObject>($"Prefab/02CharacterGame/{assetName}");
+        // Addressables를 통해 캐릭터 프리팹 로드
+        var prefabHandle = Addressables.LoadAssetAsync<GameObject>($"Prefab/02CharacterGame/{assetName}");
+        var prefab = await prefabHandle.Task;
         if (prefab == null)
         {
             Logger.LogError($"Prefab not found for asset name {assetName}");
@@ -187,6 +191,12 @@ public class PlayerCharacterSpawner : MonoBehaviour
 
     private void SelectCharacterForSpawning(int index)
     {
+        if (index < 0 || index >= playerCharacters.Length)
+        {
+            Debug.LogWarning($"Index {index} is out of bounds for playerCharacters array.");
+            return;
+        }
+
         if (selectedCharacterIndex == index)
         {
             selectedCharacterIndex = -1;
@@ -230,11 +240,6 @@ public class PlayerCharacterSpawner : MonoBehaviour
         activePlayerCharacters[positionIndex] = playerCharacter;
         playerCharacter.Status.Init();
         playerCharacter.gameObject.SetActive(true);
-
-        if (tutorial.gameObject.activeSelf)
-        {
-            playerCharacter.gameObject.AddComponent<TutorialGameTrigger>();    
-        }
         
         if (characterButtons[selectedCharacterIndex] != null)
         {

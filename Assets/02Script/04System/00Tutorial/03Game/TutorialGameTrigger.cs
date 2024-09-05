@@ -27,7 +27,6 @@ public class TutorialGameTrigger : MonoBehaviour
     private void OnDisabled()
     {
         observer.OnTargetDisabled(this);
-
     }
     public void OnFailButSurvived()
     {
@@ -35,8 +34,6 @@ public class TutorialGameTrigger : MonoBehaviour
     }
     private void OnDisable()
     {
-        // 오브젝트가 비활성화될 때 리스트에서 제거합니다.
-        Logger.Log($"{gameObject.name} is being disabled.");
         OnDisabled();
     }
     private void OnEnable()

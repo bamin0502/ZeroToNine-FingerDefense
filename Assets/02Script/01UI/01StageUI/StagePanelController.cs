@@ -1,5 +1,3 @@
-using System;
-using Coffee.UIExtensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -31,19 +29,11 @@ public class StagePanelController : MonoBehaviour, IBeginDragHandler, IDragHandl
     }
     private void SetCurrentIndexBasedOnClearedStages()
     {
-        int lastClearedStage = 0;
-        var stageClear = GameManager.instance.GameData.StageClear;
-
-        foreach (var kvp in stageClear)
-        {
-            if (kvp.Value)
-            {
-                lastClearedStage = kvp.Key;
-            }
-        }
-
+        // int lastClearedStage = 0;
+        var stageClear = GameManager.instance.GameData.StageClearNum;
+        
         // lastClearedStage에 따른 currentIndex 및 leftPadding 설정
-        switch (lastClearedStage)
+        switch (stageClear)
         {
             case 13001:
                 currentIndex = 1;
@@ -216,42 +206,6 @@ public class StagePanelController : MonoBehaviour, IBeginDragHandler, IDragHandl
         }
     }
 
-    // private void UpdateStageSlots(bool instant = false)
-    // {
-    //     for (var i = 0; i < stagePanel.childCount; i++)
-    //     {
-    //         var rect = stagePanel.GetChild(i).GetComponent<RectTransform>();
-    //         float distanceFromCenter = Mathf.Abs(i - currentIndex);
-    //         var scale = Mathf.Lerp(1.0f, scaleFactor, distanceFromCenter);
-    //
-    //         if (instant)
-    //         {
-    //             rect.localScale = new Vector3(scale, scale, 1);
-    //         }
-    //         else
-    //         {
-    //             rect.DOScale(new Vector3(scale, scale, 1), animationDuration).SetEase(Ease.InOutQuad);
-    //         }
-    //         var isInteractable = (distanceFromCenter < 1.0f);
-    //         SetButtonsInteractable(rect, isInteractable);
-    //         
-    //         rect.anchorMin = new Vector2(0.5f, 0.5f);
-    //         rect.anchorMax = new Vector2(0.5f, 0.5f);
-    //         rect.pivot = new Vector2(0.5f, 0.5f);
-    //         rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, 0); 
-    //     }
-    //
-    //     return;
-    //
-    //     void SetButtonsInteractable(Transform slot, bool isInteractable)
-    //     {
-    //         var buttons = slot.GetComponentsInChildren<Button>();
-    //         foreach (var button in buttons)
-    //         {
-    //             button.interactable = isInteractable;
-    //         }
-    //     }
-    // }
     private void UpdateStageSlots(bool instant = false)
     {
         for (var i = 0; i < stagePanel.childCount; i++)

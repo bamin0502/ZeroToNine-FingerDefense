@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CharacterInfoSlot : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class CharacterInfoSlot : MonoBehaviour
     public TextMeshProUGUI characterSkillName;
     public TextMeshProUGUI characterSkillDescription;
     
-    //스킬이 있을때만 활성화 시킬 목록
+    // 스킬이 있을 때만 활성화 시킬 목록
     public TextMeshProUGUI characterSkillText;
     public Image SkillImage;
     
@@ -56,28 +58,30 @@ public class CharacterInfoSlot : MonoBehaviour
             characterSkillText.gameObject.SetActive(false);
         }
         
-        var skillImage = SkillImage.GetComponent<Image>();
         var skillId = assetListTable.Get(characterData.SkillIcon);
 
-        if (skillImage != null && !string.IsNullOrEmpty(skillId))
+        if (SkillImage != null && !string.IsNullOrEmpty(skillId))
         {
-            var skillSprite = Resources.Load<Sprite>($"Prefab/09SkillIcon/{skillId}");
-            if (skillSprite != null)
-            {
-                skillImage.sprite = skillSprite;
-                skillImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                Debug.LogError($"Skill sprite not found for skill ID: {skillId}");
-                skillImage.gameObject.SetActive(false);
-            }
+            Addressables.LoadAssetAsync<Sprite>($"Prefab/09SkillIcon/{skillId}").Completed += OnSkillIconLoaded;
         }
         else
         {
-            Debug.LogWarning("Skill ID is empty or skillImage is null.");
-            skillImage.gameObject.SetActive(false);
+            Debug.LogWarning("Skill ID is empty or SkillImage is null.");
+            SkillImage.gameObject.SetActive(false);
         }
     }
 
+    private void OnSkillIconLoaded(AsyncOperationHandle<Sprite> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            SkillImage.sprite = handle.Result;
+            SkillImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError($"Skill sprite not found or failed to load.");
+            SkillImage.gameObject.SetActive(false);
+        }
+    }
 }

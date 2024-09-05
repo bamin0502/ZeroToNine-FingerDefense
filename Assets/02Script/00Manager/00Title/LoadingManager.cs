@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-
 public class LoadingManager : MonoBehaviour
 {
     private static string nextScene;

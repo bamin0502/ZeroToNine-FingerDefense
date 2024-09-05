@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using UnityEngine.Video;
+using Cysharp.Threading.Tasks;
+using Random = UnityEngine.Random;
 
 public class GachaSystem : MonoBehaviour
 {
@@ -12,42 +16,44 @@ public class GachaSystem : MonoBehaviour
     public PlayableDirector gachaSuccessDirector;
 
     private GachaTable gachaTable;
-    private AssetListTable aasetListTable;
+    private AssetListTable assetListTable;
     private StringTable stringTable;
     private UpgradeTable upgradeTable;
 
     public Button closeButton;
-    private List<GachaResultSlot> spawnedSlots = new List<GachaResultSlot>();
+    private readonly List<GachaResultSlot> spawnedSlots = new List<GachaResultSlot>();
 
     [SerializeField, Range(0f, 10f), Tooltip("고급 등급 확률이 해당 값에 따라서 변경됩니다."), Header("고급 등급 확률")]
     private float highGradeProbability = 3f;
 
     [SerializeField, Range(0f, 30f), Tooltip("중급 등급 확률이 해당 값에 따라서 변경됩니다."), Header("중급 등급 확률")]
     private float midGradeProbability = 20f;
-    
+
     public GameObject gachaResultPanel;
-    private bool isCutscenePlaying = false;
+    
+    public static event Action OnCharacterSlotUpdated;
     
     private void Start()
     {
         gachaTable = DataTableManager.Get<GachaTable>(DataTableIds.Gacha);
-        aasetListTable = DataTableManager.Get<AssetListTable>(DataTableIds.Asset);
+        assetListTable = DataTableManager.Get<AssetListTable>(DataTableIds.Asset);
         stringTable = DataTableManager.Get<StringTable>(DataTableIds.String);
         upgradeTable = DataTableManager.Get<UpgradeTable>(DataTableIds.Upgrade);
+
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(ClearGachaResults);
         }
-        
+
         gachaFailDirector.stopped += OnTimelineFinished;
         gachaSuccessDirector.stopped += OnTimelineFinished;
-        
     }
 
     public void PerformGacha(int times)
     {
+        ClearGachaResults();
         gachaResultPanel.SetActive(false);
-        GachaData lastResult = null;
+        bool isSuccess = false;
 
         for (int i = 0; i < times; i++)
         {
@@ -55,6 +61,9 @@ public class GachaSystem : MonoBehaviour
             if (result != null)
             {
                 bool isNew = true;
+                bool isAlreadyUpgraded = false;
+
+                // ObtainedGachaIDs에서 중복 여부 확인
                 foreach (var id in GameManager.instance.GameData.ObtainedGachaIDs)
                 {
                     var upgradedVersion =
@@ -66,113 +75,126 @@ public class GachaSystem : MonoBehaviour
                     }
                 }
 
-                if (isNew)
+                // characterIds에 업그레이드 상태가 있는지 확인
+                if (GameManager.instance.GameData.characterIds.Contains(result.Id))
+                {
+                    var upgradedVersion =
+                        upgradeTable.upgradeTable.Values.FirstOrDefault(x => x.NeedCharId == result.Id);
+                    if (upgradedVersion != null &&
+                        GameManager.instance.GameData.characterIds.Contains(upgradedVersion.UpgradeResultId))
+                    {
+                        isAlreadyUpgraded = true;
+                    }
+                }
+
+                // 새로운 캐릭터고 이미 업그레이드된 상태가 아니면 추가
+                if (isNew && !isAlreadyUpgraded)
                 {
                     GameManager.instance.GameData.ObtainedGachaIDs.Add(result.Id);
-                    Logger.Log($"Obtained Gacha ID: {result.Id}");
+                    GameManager.instance.GameData.characterIds.Add(result.Id);
+                    Logger.Log($"Obtained Gacha ID: {result.Id}, Grade: {result.Grade}");
                     DataManager.SaveFile(GameManager.instance.GameData);
-
-                    CharacterUpgradePanel upgradePanel = FindObjectOfType<CharacterUpgradePanel>();
-                    if (upgradePanel != null)
-                    {
-                        upgradePanel.RefreshPanel();
-                    }
-
-                    DeckSlotController deckSlotController = FindObjectOfType<DeckSlotController>();
-                    if (deckSlotController != null)
-                    {
-                        deckSlotController.RefreshCharacterSlots();
-                    }
+                    
+                    OnCharacterSlotUpdated?.Invoke();
                 }
                 else
                 {
-                    // 중복 처리
-                    switch (gachaTable.table[result.Id].Grade)
-                    {
-                        case 0:
-                            GameManager.instance.GameData.Mileage += 100;
-                            break;
-                        case 1:
-                            GameManager.instance.GameData.Mileage += 300;
-                            break;
-                        case 2:
-                            GameManager.instance.GameData.Mileage += 500;
-                            break;
-                    }
+                    Logger.Log($"Duplicate or upgraded Gacha ID: {result.Id}, Grade: {result.Grade}");
+                    AddMileage(gachaTable.table[result.Id].Grade);
                 }
 
-                lastResult = result;
+                // 3성(Grade 2) 결과가 있으면 성공으로 플래그 설정
+                if (result.Grade == 2)
+                {
+                    isSuccess = true;
+                    Logger.Log("3성 캐릭터 획득!");
+                }
 
-                // 결과 슬롯 생성 (결과는 모든 뽑기마다 생성)
-                SpawnResultSlot(result, isNew);
+                // 결과 슬롯 생성
+                SpawnResultSlot(result, isNew && !isAlreadyUpgraded);
             }
         }
-        // 마지막 뽑기의 결과에 따라 컷신 재생
-        if (lastResult != null)
-        {
-            if (lastResult.Grade == 2)
-            {
-                gachaSuccessDirector.Play();
-            }
-            else
-            {
-                gachaFailDirector.Play();
-            }
-        }
+
+        // 컷신 재생
+        PrepareAndPlayDirectorAsync(isSuccess ? gachaSuccessDirector : gachaFailDirector).Forget();
     }
 
-
-    private GachaData GetRandomGachaResult()
+    private async UniTaskVoid PrepareAndPlayDirectorAsync(PlayableDirector director)
     {
-        float rand = UnityEngine.Random.value * 100f;
-        int grade;
+        VideoPlayer videoPlayer = director.GetComponent<VideoPlayer>();
+        if (videoPlayer != null)
+        {
+            videoPlayer.Stop();
+            videoPlayer.frame = 0;
+            videoPlayer.Prepare();
+            ResetRenderTexture(videoPlayer.targetTexture);
 
-        if (rand <= highGradeProbability)
-        {
-            grade = 2;
-        }
-        else if (rand <= highGradeProbability + midGradeProbability)
-        {
-            grade = 1;
+            // 비디오 준비가 완료될 때까지 무조건 대기
+            await PrepareVideoAsync(videoPlayer);
+
+            videoPlayer.Play();
+            director.time = 0; // 타임라인을 처음부터 재생
+            director.Play();
         }
         else
         {
-            grade = 0;
+            director.time = 0; // 타임라인을 처음부터 재생
+            director.Play();
         }
+    }
 
-        List<GachaData> possibleResults = new List<GachaData>();
+    private async UniTask PrepareVideoAsync(VideoPlayer videoPlayer)
+    {
+        var tcs = new UniTaskCompletionSource();
 
-        foreach (var gachaData in gachaTable.table.Values)
+        void OnPrepared(VideoPlayer vp)
         {
-            if (gachaData.Grade == grade)
-            {
-                possibleResults.Add(gachaData);
-            }
+            vp.prepareCompleted -= OnPrepared;
+            tcs.TrySetResult();
         }
 
-        int index = UnityEngine.Random.Range(0, possibleResults.Count);
+        videoPlayer.prepareCompleted += OnPrepared;
+        videoPlayer.Prepare();
+
+        await tcs.Task;
+    }
+
+    private void OnTimelineFinished(PlayableDirector director)
+    {
+        ShowGachaResultsAfterCutscene();
+    }
+
+    private void ShowGachaResultsAfterCutscene()
+    {
+        gachaResultPanel.SetActive(true);
+        ShowGachaResults();
+    }
+
+    private GachaData GetRandomGachaResult()
+    {
+        float rand = Random.value * 100f;
+        int grade = (rand <= highGradeProbability) ? 2 :
+            (rand <= highGradeProbability + midGradeProbability) ? 1 : 0;
+
+        List<GachaData> possibleResults = gachaTable.table.Values.Where(g => g.Grade == grade).ToList();
+        int index = Random.Range(0, possibleResults.Count);
         return possibleResults[index];
     }
 
     private void SpawnResultSlot(GachaData data, bool isNew)
     {
         var slot = Instantiate(resultSlot, gachaSlotParent);
-        slot.Setup(data, aasetListTable, stringTable, isNew);
+        slot.Setup(data, assetListTable, stringTable, isNew);
         slot.gameObject.SetActive(false);
         spawnedSlots.Add(slot);
         DataManager.SaveFile(GameManager.instance.GameData);
-    }
-    private void OnTimelineFinished(PlayableDirector director)
-    {
-        gachaResultPanel.SetActive(true);
-        ShowGachaResults();
     }
 
     private void ShowGachaResults()
     {
         foreach (var slot in spawnedSlots)
         {
-            slot.gameObject.SetActive(true); 
+            slot.gameObject.SetActive(true);
         }
     }
 
@@ -184,5 +206,27 @@ public class GachaSystem : MonoBehaviour
         }
 
         spawnedSlots.Clear();
+    }
+
+    private void AddMileage(int grade)
+    {
+        int mileage = grade switch
+        {
+            0 => 100,
+            1 => 300,
+            2 => 500,
+            _ => 0
+        };
+
+        GameManager.instance.GameData.Mileage += mileage;
+    }
+
+    private void ResetRenderTexture(RenderTexture renderTexture)
+    {
+        if (renderTexture != null)
+        {
+            renderTexture.Release();
+            renderTexture.Create();
+        }
     }
 }

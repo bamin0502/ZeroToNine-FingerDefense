@@ -30,15 +30,13 @@ public class InputManager : MonoBehaviour
     {
         if (stageManager == null)
         {
-            Logger.Log("StageManager is null");
         }
     }
 
     private void OnEnable()
     {
-        if (stageManager == null)
+        if (stageManager != null)
         {
-            Logger.Log("StageManager is null");
         }
         control.Enable();
         control.MonsterDrag.Click.performed += OnClickHandler;

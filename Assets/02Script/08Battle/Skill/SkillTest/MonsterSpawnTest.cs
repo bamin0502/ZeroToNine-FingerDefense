@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
+using Cysharp.Threading.Tasks;
+using Object = UnityEngine.Object;
 
 public class MonsterSpawnTest : MonoBehaviour
 {
@@ -42,7 +44,7 @@ public class MonsterSpawnTest : MonoBehaviour
         if (!int.TryParse(monsterIdText.text, out var id))
             return;
 
-        CreateMonster(id);
+        CreateMonster(id).Forget();
     }
 
     public void RemoveAllMonster()
@@ -54,7 +56,7 @@ public class MonsterSpawnTest : MonoBehaviour
         }
     }
 
-    private MonsterController CreateMonster(int id)
+    private async UniTask<MonsterController> CreateMonster(int id)
     {
         var monsterData = monsterTable.Get(id);
         if (monsterData == null)
@@ -72,14 +74,25 @@ public class MonsterSpawnTest : MonoBehaviour
         }
         var assetPath = $"Prefab/03MonsterGame/{assetFileName}";
 
-        var monsterPrefab = Resources.Load<MonsterController>(assetPath);
+        // var monsterPrefab = Resources.Load<MonsterController>(assetPath);
+        AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(assetPath);
+        await handle.Task; // 비동기 로드 완료를 기다림
+
+        if (!handle.IsValid() || handle.Status != AsyncOperationStatus.Succeeded)
+        {
+            throw new InvalidOperationException($"경로에서 GameObject를 로드하지 못했습니다.: {assetPath}");
+        }
+
+        GameObject monsterGameObject = handle.Result;
+        MonsterController monsterPrefab = monsterGameObject.GetComponent<MonsterController>();
+
         if (monsterPrefab == null)
         {
             Logger.LogError($"해당 경로의 몬스터 프리팹을 확인해주세요: {assetPath}");
             return null;
         }
 
-        var spawnPos = (Vector2)monsterSpawnPos.position + Random.insideUnitCircle * monsterSpawnRadius;
+        var spawnPos = (Vector2)monsterSpawnPos.position + UnityEngine.Random.insideUnitCircle * monsterSpawnRadius;
         var instantiatedMonster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
         instantiatedMonster.Status.Data = monsterData;
 

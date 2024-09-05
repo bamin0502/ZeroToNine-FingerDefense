@@ -1,26 +1,21 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class GameCameraController : MonoBehaviour
 {
     public enum ScreenMode
     {
-        FULL_SCREEN_FIXED_WIDTH,
+        FULL_SCREEN,
         ASPECT_RATIO,
-        TOP_BOTTOM_LETTER_BOX,
-        LEFT_RIGHT_LETTER_BOX,
-        SAFE_AREA_FIXED_WIDTH
+        SAFE_AREA
     }
     private Camera mainCamera;
 
     [Header("스크린 모드")]
-    [SerializeField] private ScreenMode defaultLandScapeMode; // 가로
-    [SerializeField] private ScreenMode defaultPortraitMode; // 세로
-    [SerializeField] private ScreenMode currentScreenMode;
+    [SerializeField] private ScreenMode defaultScreenMode;
+    private ScreenMode currentScreenMode;
     private ScreenMode prevScreenMode;
     public bool IsScreenModeChange
     {
@@ -31,7 +26,10 @@ public class GameCameraController : MonoBehaviour
     public float targetWidth = 20f;
     [SerializeField] private float targetHeight = 20f;
     public float bottomY;
-    public float limitAspectRatio = 2f;
+
+    [Header("한계 종횡비")]
+    public float lowerLimitAspectRatio = 1f;
+    public float upperLimitAspectRatio = 2f;
 
     [Header("몬스터 드래그 줌 아웃 / 줌 인")]
     [SerializeField] private float zoomOutWidth = 25f;
@@ -98,10 +96,7 @@ public class GameCameraController : MonoBehaviour
             ChangeResolution();
             onScreenChange?.Invoke();
         }
-    }
 
-    private void LateUpdate()
-    {
         prevScreenMode = currentScreenMode;
         currentScreenHeight = Screen.height;
         currentScreenWidth = Screen.width;
@@ -109,38 +104,37 @@ public class GameCameraController : MonoBehaviour
 
     private void ChangeResolution()
     {
+        var screenAspectRatio = (float)Screen.width / (float)Screen.height;
+        var targetAspectRatio = currentWidth / targetHeight;
+
         if (IsResolutionChange)
         {
-            if (Screen.height > Screen.width) // 강제 세로모드에 대한 대응
+            if (lowerLimitAspectRatio > screenAspectRatio) // 세로로 길쭉한 스크린
             {
-                currentScreenMode = defaultPortraitMode;
+                currentScreenMode = ScreenMode.ASPECT_RATIO;
+                targetAspectRatio = lowerLimitAspectRatio;
             }
-            else if (limitAspectRatio < (float)Screen.width / (float)Screen.height) // 한계 종횡비에 대한 대응
+            else if (upperLimitAspectRatio < screenAspectRatio) // 가로로 길쭉한 스크린
             {
-                currentScreenMode = ScreenMode.LEFT_RIGHT_LETTER_BOX;
+                currentScreenMode = ScreenMode.ASPECT_RATIO;
+                targetAspectRatio = upperLimitAspectRatio;
             }
-            else // 가로모드에 대한 대응
+            else // 기본 모드
             {
-                currentScreenMode = defaultLandScapeMode;
+                currentScreenMode = defaultScreenMode;
             }
         }
 
         switch (currentScreenMode)
         {
-            case ScreenMode.FULL_SCREEN_FIXED_WIDTH:
-                AdjustCamera();
+            case ScreenMode.FULL_SCREEN:
+                ApplyFullScreenRect();
                 break;
             case ScreenMode.ASPECT_RATIO:
-                AdjustCameraUsingLetterBox();
+                ApplyLetterBoxRect(screenAspectRatio, targetAspectRatio);
                 break;
-            case ScreenMode.TOP_BOTTOM_LETTER_BOX:
-                ApplyTopBottomLetterBox();
-                break;
-            case ScreenMode.LEFT_RIGHT_LETTER_BOX:
-                ApplyLeftRightLetterBox();
-                break;
-            case ScreenMode.SAFE_AREA_FIXED_WIDTH:
-                AdjustCameraForSafeArea();
+            case ScreenMode.SAFE_AREA:
+                ApplySafeAreaRect();
                 break;
         }
 
@@ -148,13 +142,13 @@ public class GameCameraController : MonoBehaviour
         AdjustUiCamera();
     }
 
-    private void AdjustCamera()
+    private void ApplyFullScreenRect()
     {
         var normalRect = new Rect(0f, 0f, 1f, 1f);
         mainCamera.rect = normalRect;
     }
 
-    private void AdjustCameraForSafeArea()
+    private void ApplySafeAreaRect()
     {
         var safeAreaRect = Screen.safeArea;
         var cameraRect = safeAreaRect;
@@ -166,56 +160,46 @@ public class GameCameraController : MonoBehaviour
         mainCamera.rect = cameraRect;
     }
 
-    private void AdjustCameraUsingLetterBox()
+    private void ApplyLetterBoxRect(float screenAspectRatio, float targetAspectRatio)
     {
-        float screenAspectRatio = (float)Screen.width / (float)Screen.height;
-        float targetAspectRatio = currentWidth / targetHeight;
-
-        if (screenAspectRatio >= targetAspectRatio)
+        if (screenAspectRatio >= targetAspectRatio) // 좌우 레터박스
         {
-            // 좌우 레터박스
             float viewportWidth = targetAspectRatio / screenAspectRatio;
             var adjustedRect = new Rect((1f - viewportWidth) / 2f, 0f, viewportWidth, 1f);
             mainCamera.rect = adjustedRect;
         }
-        else
+        else // 상하 레터박스
         {
-            // 상하 레터박스
             float viewportHeight = screenAspectRatio / targetAspectRatio;
             var adjustedRect = new Rect(0f, (1f - viewportHeight) / 2f, 1f, viewportHeight);
             mainCamera.rect = adjustedRect;
         }
     }
 
-    private void ApplyTopBottomLetterBox()
+    private void ResizeAndRepositionCamera()
     {
-        float screenAspectRatio = (float)Screen.width / (float)Screen.height;
-        float targetAspectRatio = currentWidth / targetHeight;
-        
-        float viewportHeight = screenAspectRatio / targetAspectRatio;
-        var adjustedRect = new Rect(0f, (1f - viewportHeight) / 2f, 1f, viewportHeight);
-        mainCamera.rect = adjustedRect;
+        var aspectRatio = mainCamera.aspect;
+
+        // Resize
+        var orthographicSize = currentWidth / (aspectRatio * 2f);
+        mainCamera.orthographicSize = orthographicSize;
+
+        // Reposition
+        var cameraPositionY = bottomY + orthographicSize;
+        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, cameraPositionY, mainCamera.transform.position.z);
     }
 
-    private void ApplyLeftRightLetterBox()
+    private void AdjustUiCamera()
     {
-        float screenAspectRatio = (float)Screen.width / (float)Screen.height;
-        float targetAspectRatio = limitAspectRatio;
-
-        float viewportWidth = targetAspectRatio / screenAspectRatio;
-        var adjustedRect = new Rect((1f - viewportWidth) / 2f, 0f, viewportWidth, 1f);
-        mainCamera.rect = adjustedRect;
+        foreach (var uiCamera in uiCameras)
+        {
+            uiCamera.rect = mainCamera.rect;
+            uiCamera.orthographicSize = mainCamera.orthographicSize;
+        }
     }
 
-    public void ZoomOutCamera()
-    {
-        SetTargetWidth(zoomOutWidth, zoomTime);
-    }
-
-    public void ResetCamera()
-    {
-        SetTargetWidth(targetWidth, zoomTime);
-    }
+    public void ZoomOutCamera() => SetTargetWidth(zoomOutWidth, zoomTime);
+    public void ResetCamera() => SetTargetWidth(targetWidth, zoomTime);
 
     public void SetTargetWidth(float target, float duration)
     {
@@ -244,23 +228,5 @@ public class GameCameraController : MonoBehaviour
         }
 
         ResizeAndRepositionCamera();
-    }
-
-    private void ResizeAndRepositionCamera()
-    {
-        var aspectRatio = mainCamera.aspect;
-        var orthographicSize = currentWidth / (aspectRatio * 2f);
-        mainCamera.orthographicSize = orthographicSize;
-        var cameraPositionY = bottomY + orthographicSize;
-        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, cameraPositionY, mainCamera.transform.position.z);
-    }
-
-    private void AdjustUiCamera()
-    {
-        foreach (var uiCamera in uiCameras)
-        {
-            uiCamera.rect = mainCamera.rect;
-            uiCamera.orthographicSize = mainCamera.orthographicSize;
-        }
     }
 }

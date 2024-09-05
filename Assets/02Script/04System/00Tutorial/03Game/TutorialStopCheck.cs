@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialStopCheck : TutorialBase
@@ -10,8 +8,6 @@ public class TutorialStopCheck : TutorialBase
     private bool isNext = false;
     public override void Enter()
     {
-        
-        
     }
 
     public override void Execute(TutorialController controller)
@@ -24,6 +20,5 @@ public class TutorialStopCheck : TutorialBase
 
     public override void Exit()
     {
-        
     }
 }

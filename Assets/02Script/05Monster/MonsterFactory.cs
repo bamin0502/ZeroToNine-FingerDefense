@@ -1,9 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
+using Cysharp.Threading.Tasks;
 using Object = UnityEngine.Object;
 
 
@@ -13,32 +14,37 @@ public class MonsterFactory
     private AssetListTable assetList;
     private MonsterTable monsterTable;
     private SkillTable skillTable;
-    
-    private Dictionary<int,IObjectPool<MonsterController>> monsterPool =
+
+    private Dictionary<int, IObjectPool<MonsterController>> monsterPool =
         new Dictionary<int, IObjectPool<MonsterController>>();
-        
-    public void Init(HashSet<int> ids)
+
+    public async UniTask Init(HashSet<int> ids)
     {
         assetList = DataTableManager.Get<AssetListTable>(DataTableIds.Asset);
         monsterTable = DataTableManager.Get<MonsterTable>(DataTableIds.Monster);
         skillTable = DataTableManager.Get<SkillTable>(DataTableIds.Skill);
-        
+
         foreach (var id in ids)
         {
             monsterPool[id] = new ObjectPool<MonsterController>(
-                () => CreatedPooledMonster(id),
+                () => CreatedPooledMonsterAsync(id).GetAwaiter().GetResult(),
                 OnTakeFromPool,
                 OnReturnToPool,
                 OnDestroyPoolObject,
                 true, 10, 1000
             );
+            
+            var monster = await CreatedPooledMonsterAsync(id);
+            monsterPool[id].Release(monster);
         }
+        await UniTask.Yield();
     }
-    private MonsterController CreatedPooledMonster(int id)
+
+    private async UniTask<MonsterController> CreatedPooledMonsterAsync(int id)
     {
         if (assetList == null)
         {
-            throw new InvalidOperationException("AssetList가 초기화되지 않았습니다..");
+            throw new InvalidOperationException("AssetList가 초기화되지 않았습니다.");
         }
 
         var assetId = monsterTable.Get(id).AssetNo;
@@ -47,18 +53,26 @@ public class MonsterFactory
         {
             throw new InvalidOperationException($"ID :{assetId}에 대한 자산 경로를 찾을 수 없습니다.");
         }
-        
-        var assetPath = $"Prefab/03MonsterGame/{assetFileName}";
 
-        // Log the asset path to debug the issue
+        var assetPath = $"Prefab/03MonsterGame/{assetFileName}";
         Logger.Log($"경로에서 MonsterController 로드하기: {assetPath}");
-        
-        //TO-DO: Addressable로 변경 예정
-        //var monster=Addressables.LoadAssetAsync<MonsterController>(assetPath).WaitForCompletion();
-        var monster = Resources.Load<MonsterController>(assetPath);
+
+        // Addressables를 사용하여 GameObject를 비동기 로드
+        AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(assetPath);
+        await handle.Task; // 비동기 로드 완료를 기다림
+
+        if (!handle.IsValid() || handle.Status != AsyncOperationStatus.Succeeded)
+        {
+            throw new InvalidOperationException($"경로에서 GameObject를 로드하지 못했습니다.: {assetPath}");
+        }
+
+        GameObject monsterGameObject = handle.Result;
+
+        // GameObject에서 MonsterController 컴포넌트를 가져옴
+        MonsterController monster = monsterGameObject.GetComponent<MonsterController>();
         if (monster == null)
         {
-            throw new InvalidOperationException($"경로에서 MonsterController를 로드하지 못했습니다.: {assetPath}");
+            throw new InvalidOperationException($"로드된 GameObject에서 MonsterController를 찾을 수 없습니다.: {assetPath}");
         }
 
         var instantiatedMonster = Object.Instantiate(monster);
@@ -108,6 +122,7 @@ public class MonsterFactory
         instantiatedMonster.pool = monsterPool[id];
         return instantiatedMonster;
     }
+
     private void OnTakeFromPool(MonsterController monster)
     {
         monster.gameObject.SetActive(true);

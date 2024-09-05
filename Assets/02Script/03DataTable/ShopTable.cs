@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CsvHelper;
@@ -32,7 +31,6 @@ public class ShopTable : DataTable
         path = string.Format(FormatPath, path);
 
         var textAsset = Addressables.LoadAssetAsync<TextAsset>(path).WaitForCompletion();
-        //var textAsset = Resources.Load<TextAsset>(path);
 
         using var reader = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(textAsset.text)), Encoding.UTF8);
         using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);

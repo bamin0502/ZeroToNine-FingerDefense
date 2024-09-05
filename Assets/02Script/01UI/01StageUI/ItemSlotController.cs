@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ItemSlotController : MonoBehaviour
+public class ItemSlotController : MonoBehaviour,IResourceObserver
 {
     public RectTransform itemSlotParent; // 빈 슬롯이 위치할 부모 객체
     public RectTransform itemSelectParent; // 아이템 슬롯이 위치할 부모 객체
@@ -12,7 +11,7 @@ public class ItemSlotController : MonoBehaviour
     private ItemTable itemTable;
     private AssetListTable assetListTable;
 
-    private List<ItemSlotUI> itemSlots = new List<ItemSlotUI>(); // 아이템 슬롯 리스트
+    public List<ItemSlotUI> itemSlots = new List<ItemSlotUI>(); // 아이템 슬롯 리스트
     private List<ItemSlotUI> emptySlots = new List<ItemSlotUI>(); // 빈 슬롯 리스트
     private HashSet<int> addedItems = new HashSet<int>(); // 추가된 아이템 ID를 관리
 
@@ -26,12 +25,37 @@ public class ItemSlotController : MonoBehaviour
 
     private void OnEnable()
     {
-                              
+        GameManager.instance.GameData.RegisterObserver(this);                          
     }
-
+    
+    private void OnDisable()
+    {
+        // 옵저버 해제
+        GameManager.instance.GameData.RemoveObserver(this);
+    }
+    
     private void Start()
     {
+        CheckAndProvideItemsForTutorial();
         RefreshItemSlots();   
+    }
+
+    private void CheckAndProvideItemsForTutorial()
+    {
+        if (!GameManager.instance.GameData.Game2TutorialCheck)
+        {
+            // 지급할 아이템 ID와 개수를 설정
+            int itemIdToCheck = 8007; 
+            int itemCountToProvide = 1;
+
+            // 아이템이 이미 있는지 확인
+            var gameItem = GameManager.instance.GameData.Items.FirstOrDefault(item => item.itemId == itemIdToCheck);
+            if (gameItem.Equals(default((int itemId, int itemCount))))
+            {
+                // 아이템이 없으면 지급
+                GameManager.instance.GameData.AddItem(itemIdToCheck, itemCountToProvide);
+            }
+        }
     }
 
 
@@ -66,7 +90,7 @@ public class ItemSlotController : MonoBehaviour
         for (var i = 0; i < 2; i++)
         {
             var emptySlot = Instantiate(itemSlotPrefab, itemSlotParent);
-            emptySlot.Setup(null, null, 0);
+            _ = emptySlot.Setup(null, null, 0);
             emptySlot.onClickItemSlot = HandleEmptySlotClick;
             emptySlots.Add(emptySlot);
         }
@@ -89,8 +113,7 @@ public class ItemSlotController : MonoBehaviour
 
         foreach (var purchasedItem in purchasedItems)
         {
-            Logger.Log($"Item ID: {purchasedItem.itemId}, Count: {purchasedItem.itemCount}");
-
+            
             if (itemTable.table.TryGetValue(purchasedItem.itemId, out var itemData))
             {
                 var itemSlot = itemSlots.FirstOrDefault(slot => slot.ItemId == purchasedItem.itemId);
@@ -102,18 +125,16 @@ public class ItemSlotController : MonoBehaviour
                 else if (assetListTable.table.TryGetValue(itemData.IconNo, out var assetPath))
                 {
                     itemSlot = Instantiate(itemSlotPrefab, itemSelectParent);
-                    itemSlot.Setup(itemData, assetPath, purchasedItem.itemCount);
+                    _ = itemSlot.Setup(itemData, assetPath, purchasedItem.itemCount);
                     itemSlot.onClickItemSlot = HandleItemSlotClick;
                     itemSlot.OnLongPress = slot =>
                     {
-                        Logger.Log($"Long press detected on item ID: {itemData.Id}");
                         itemInfoSlot.SetItemInfoSlot(itemData);
                         itemInfoSlot.gameObject.SetActive(true);
                     };
 
                     itemSlot.OnLongPressRelease = () =>
                     {
-                        Logger.Log($"Long press released on item ID: {itemData.Id}");
                         itemInfoSlot?.gameObject.SetActive(false);
                     };
 
@@ -186,7 +207,7 @@ public class ItemSlotController : MonoBehaviour
             if (itemTable.table.TryGetValue(clickedSlot.ItemId, out var itemData))
             {
                 var newSlot = Instantiate(itemSlotPrefab, itemSelectParent);
-                newSlot.Setup(itemData, clickedSlot.ItemSprite.name, removeCount);
+                _ = newSlot.Setup(itemData, clickedSlot.ItemSprite.name, removeCount);
                 newSlot.onClickItemSlot = HandleItemSlotClick;
                 newSlot.OnLongPress = slot => itemInfoSlot.SetItemInfoSlot(itemData);
                 newSlot.OnLongPressRelease = () => itemInfoSlot.gameObject.SetActive(false);
@@ -212,7 +233,6 @@ public class ItemSlotController : MonoBehaviour
             addCount += existingItem.itemCount;
         }
         Variables.LoadTable.ItemId.Add((itemId, addCount));
-        Logger.Log($"Saved item {itemId} with limit {addCount} to LoadTable");
     }
 
     private void RemoveItemFromLoadTable(int itemId)
@@ -221,10 +241,9 @@ public class ItemSlotController : MonoBehaviour
         if (itemToRemove != default)
         {
             Variables.LoadTable.ItemId.Remove(itemToRemove);
-
-            Logger.Log($"Removed item {itemId} from LoadTable");
         }
     }
+    
     public void OnStartButtonClick()
     {
         // 빈 슬롯에서 아이템 사용 처리
@@ -235,14 +254,14 @@ public class ItemSlotController : MonoBehaviour
             int usedCount = emptySlot.GetItemCount(); // 실제 사용한 아이템 개수
             if (usedCount > 0)
             {
-                // 게임 데이터에서 아이템 사용 처리
+                // 튜토리얼 완료 여부와 관계없이 아이템을 사용합니다.
                 ApplyItemUsage(emptySlot.ItemId, usedCount);
 
                 // 사용한 아이템을 LoadTable에서 업데이트
                 UpdateItemInLoadTable(emptySlot.ItemId, usedCount);
                 DataManager.SaveFile(GameManager.instance.GameData);
-                
-                // UI에서 아이템 개수를 업데이트
+
+                // UI에서 아이템 개수를 업데이트 및 슬롯 초기화
                 emptySlot.UpdateItemCount(0);
                 emptySlot.ClearSlot(); // 사용 후 슬롯 초기화
             }
@@ -251,6 +270,7 @@ public class ItemSlotController : MonoBehaviour
         // 사용 후 아이템 슬롯을 새로고침
         RefreshItemSlots();
     }
+
 
     private void ApplyItemUsage(int itemId, int usedCount)
     {
@@ -293,4 +313,29 @@ public class ItemSlotController : MonoBehaviour
         }
     }
 
+    public void UpdateSlotCount(int itemId, int newCount)
+    {
+        var itemSlot = itemSlots.FirstOrDefault(slot => slot.ItemId == itemId);
+
+        if (itemSlot != null)
+        {
+            itemSlot.UpdateItemCount(newCount);
+            Logger.Log($"Item ID {itemId} 슬롯의 카운트가 {newCount}로 업데이트되었습니다.");
+        }
+        else
+        {
+            Logger.LogWarning($"아이템 ID {itemId}에 해당하는 슬롯을 찾을 수 없습니다.");
+        }
+    }
+
+
+    public void OnResourceUpdate(ResourceType resourceType, int newValue)
+    {
+        if (resourceType == ResourceType.ItemCount)
+        {
+            // ItemCount가 업데이트된 경우 해당 아이템의 ID와 수량을 전달받아 슬롯을 갱신
+            int itemId = GameManager.instance.GameData.Items.FirstOrDefault(item => item.itemCount == newValue).itemId;
+            UpdateSlotCount(itemId, newValue);
+        }
+    }
 }

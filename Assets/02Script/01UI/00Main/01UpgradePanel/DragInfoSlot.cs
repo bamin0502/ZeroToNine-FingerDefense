@@ -39,21 +39,25 @@ public class DragInfoSlot : MonoBehaviour
     {
         if (dragLevel == (int)GameData.MonsterDrag.LOCK)
         {
-            ModalWindow.Create()
-                .SetHeader("잠김")
-                .SetBody("이 기능을 잠금 해제하려면 해당 몬스터가 등장하는 스테이지를 완료해야 합니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("잠김")
+                    .SetBody("이 기능을 잠금 해제하려면 해당 몬스터가 등장하는 스테이지를 완료해야 합니다.")
+                    .AddButton("확인", () => { })
+                    .Show();
+            });
             return;
         }
 
         if (dragLevel == (int)GameData.MonsterDrag.ACTIVE)
         {
-            ModalWindow.Create()
-                .SetHeader("구매불가")
-                .SetBody("이 몬스터의 드래그 기능은 이미 활성화되었습니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("구매불가")
+                    .SetBody("이 몬스터의 드래그 기능은 이미 활성화되었습니다.")
+                    .AddButton("확인", () => { })
+                    .Show();
+            });
             return;
         }
 
@@ -62,27 +66,31 @@ public class DragInfoSlot : MonoBehaviour
 
         if (playerGold >= cost && dragLevel == (int)GameData.MonsterDrag.UNLOCK)
         {
-            ModalWindow.Create()
-                .SetHeader("구매 확인")
-                .SetBody($"{cost}골드를 사용해서 해당 몬스터의 드래그 기능을 구매하시겠습니까?")
-                .AddButton("확인", () =>
-                {
-                    GameManager.instance.GameData.Gold -= cost;
-                    GameManager.instance.GameData.MonsterDragLevel[upgradeResultId] = (int)GameData.MonsterDrag.ACTIVE;
-                    DataManager.SaveFile(GameManager.instance.GameData);
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("구매 확인")
+                    .SetBody($"{cost}골드를 사용해서 해당 몬스터의 드래그 기능을 구매하시겠습니까?")
+                    .AddButton("확인", () =>
+                    {
+                        GameManager.instance.GameData.Gold -= cost;
+                        GameManager.instance.GameData.MonsterDragLevel[upgradeResultId] = (int)GameData.MonsterDrag.ACTIVE;
+                        DataManager.SaveFile(GameManager.instance.GameData);
 
-                    UpdateInteractive();
-                })
-                .AddButton("취소", () => { })
-                .Show();
+                        UpdateInteractive();
+                    })
+                    .AddButton("취소", () => { })
+                    .Show();
+            });
         }
         else
         {
-            ModalWindow.Create()
-                .SetHeader("구매 실패")
-                .SetBody("골드가 부족합니다.")
-                .AddButton("확인", () => { })
-                .Show();
+            ModalWindow.Create(window =>
+            {
+                window.SetHeader("구매 실패")
+                    .SetBody("골드가 부족합니다.")
+                    .AddButton("확인", () => { })
+                    .Show();
+            });
         }
     }
 
@@ -115,8 +123,8 @@ public class DragInfoSlot : MonoBehaviour
     {
         if (isUnavailable)
         {
-            monsterCost.text = "구매 불가";
-            monsterCost.color = Color.red;
+            monsterCost.text = "구매 완료";
+            monsterCost.color = Color.black;
             buyButton.interactable = false; // 버튼 비활성화
         }
     }

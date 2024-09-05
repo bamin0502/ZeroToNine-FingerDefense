@@ -1,10 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SfxSound : MonoBehaviour
 {
-    public enum SfxSoundType
+    private enum SfxSoundType
     {
         ACTIVATE_BUTTON_CLICK,
         ENTER_BUTTON_CLICK,
@@ -12,9 +13,9 @@ public class SfxSound : MonoBehaviour
     }
 
     private AudioSource sfxAduioSource;
-    public AudioClip activateButtonClickAudioClip;
-    public AudioClip enterButtonClickAudioClip;
-    public AudioClip nonActivateButtonClickAudioClip;
+    // public AudioClip activateButtonClickAudioClip;
+    // public AudioClip enterButtonClickAudioClip;
+    // public AudioClip nonActivateButtonClickAudioClip;
 
     private Dictionary<SfxSoundType, AudioClip> sounds = new();
 
@@ -25,11 +26,27 @@ public class SfxSound : MonoBehaviour
 
     private void Start()
     {
-        sounds.Add(SfxSoundType.ACTIVATE_BUTTON_CLICK, activateButtonClickAudioClip);
-        sounds.Add(SfxSoundType.ENTER_BUTTON_CLICK, enterButtonClickAudioClip);
-        sounds.Add(SfxSoundType.NON_ACTIVATE_BUTTON_CLICK, nonActivateButtonClickAudioClip);
+        LoadSfxSounds();
     }
-
+    
+    private void LoadClip(SfxSoundType soundType, string address)
+    {
+        Addressables.LoadAssetAsync<AudioClip>(address).Completed += handle =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                sounds[soundType] = handle.Result;
+            }
+        };
+    }
+    
+    private void LoadSfxSounds()
+    {
+        LoadClip(SfxSoundType.ACTIVATE_BUTTON_CLICK, "ActivateButtonClickAudioClipAddress");
+        LoadClip(SfxSoundType.ENTER_BUTTON_CLICK, "EnterButtonClickAudioClipAddress");
+        LoadClip(SfxSoundType.NON_ACTIVATE_BUTTON_CLICK, "NonActivateButtonClickAudioClipAddress");
+    }
+    
     [VisibleEnum(typeof(SfxSoundType))]
     public void PlaySfxSound(int soundType)
     {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialButtonClick : TutorialBase
@@ -23,6 +20,5 @@ public class TutorialButtonClick : TutorialBase
 
     public override void Exit()
     {
-        
     }
 }

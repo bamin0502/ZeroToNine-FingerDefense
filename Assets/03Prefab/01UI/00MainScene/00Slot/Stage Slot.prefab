@@ -231,7 +231,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1849196453724564578
@@ -422,8 +422,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
-  m_sharedMaterial: {fileID: 9148489980820272905, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
+  m_sharedMaterial: {fileID: -8413738365309405610, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -556,8 +556,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
-  m_sharedMaterial: {fileID: 9148489980820272905, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
+  m_sharedMaterial: {fileID: -8413738365309405610, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -690,8 +690,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
-  m_sharedMaterial: {fileID: 9148489980820272905, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
+  m_sharedMaterial: {fileID: -8413738365309405610, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -924,8 +924,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC785\uC7A5\uD558\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
-  m_sharedMaterial: {fileID: 9148489980820272905, guid: 6ffea48d6449377469fb7bd46dd661ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
+  m_sharedMaterial: {fileID: -8413738365309405610, guid: 06ebc6225b54b974aaed45ab4e748142, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1170,6 +1170,8 @@ MonoBehaviour:
   monsterSlotPrefab: {fileID: 4038222820789242196, guid: 20877ec03469ec041b7b0f5076eb016b, type: 3}
   rewardSlotPrefab: {fileID: 1400826845383990849, guid: ff96ade08a49df042942b599184cd02e, type: 3}
   DeckButton: {fileID: 2143682741744288827}
+  firstRewardImage: {fileID: 8014782797945564542}
+  clearImage: {fileID: 5432313686481693649}
   deckUI: {fileID: 0}
 --- !u!1 &8014782797945564542
 GameObject:

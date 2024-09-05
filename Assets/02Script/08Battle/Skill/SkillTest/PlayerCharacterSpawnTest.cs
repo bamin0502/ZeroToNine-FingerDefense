@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class PlayerCharacterSpawnTest : MonoBehaviour
 {
@@ -27,10 +28,10 @@ public class PlayerCharacterSpawnTest : MonoBehaviour
         if (!int.TryParse(playerCharacterIdText.text, out var id))
             return;
 
-        CreatePlayerCharacter(id);
+        CreatePlayerCharacter(id).Forget();
     }
 
-    private PlayerCharacterController CreatePlayerCharacter(int id)
+    private async UniTask<PlayerCharacterController> CreatePlayerCharacter(int id)
     {
         var playerCharacterData = playerCharacterTable.Get(id);
 
@@ -49,7 +50,17 @@ public class PlayerCharacterSpawnTest : MonoBehaviour
         }
         var assetPath = $"Prefab/02CharacterGame/{assetFileName}";
 
-        var playerCharacterPrefab = Resources.Load<PlayerCharacterController>(assetPath);
+        // var playerCharacterPrefab = Resources.Load<PlayerCharacterController>(assetPath);
+        AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(assetPath);
+        await handle.Task; // 비동기 로드 완료를 기다림
+
+        if (!handle.IsValid() || handle.Status != AsyncOperationStatus.Succeeded)
+        {
+            throw new InvalidOperationException($"경로에서 GameObject를 로드하지 못했습니다.: {assetPath}");
+        }
+
+        GameObject characterGameObject = handle.Result;
+        var playerCharacterPrefab = characterGameObject.GetComponent<PlayerCharacterController>();
         if (playerCharacterPrefab == null)
         {
             Logger.LogError($"해당 경로의 캐릭터 프리팹을 확인해주세요: {assetPath}");
